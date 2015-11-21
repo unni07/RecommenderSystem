@@ -1,0 +1,6 @@
+$(SolutionDir)Libraries\glm\;$(SolutionDir)Libraries\QT\include\;$(IncludePath)
+$(SolutionDir)Libraries\QT\lib\;$(LibraryPath)
+
+QtCored4.lib
+QtGuid4.lib
+QtOpenGLd4.lib
