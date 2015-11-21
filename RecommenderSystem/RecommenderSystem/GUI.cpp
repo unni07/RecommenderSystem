@@ -4,69 +4,49 @@
 
 void GUI::initialize() 
 {
-	QHBoxLayout * mainLayout = new QHBoxLayout(this);
+	QGroupBox * input = new QGroupBox("Input");
+	QHBoxLayout * inputArea = new QHBoxLayout();
+	int width = this->width();
+	int height = this->height();
+	auto inputTextEdit =  createLineEdit("input", { 0.03f*width ,0.05f* height }, { 200,15 });
+	inputTextEdit->setParent(this);
+	auto recommnedButton = createButton("RecommendButton", "Find", { 0.5f * width, 0.05* height }, { 50,20 });
+	recommnedButton->setParent(this);
 
-	fileSystem = new QGroupBox("File");
-	QVBoxLayout * fileSystemLayout = new QVBoxLayout();
-	auto newProject = createButton("New Project", "New Project");
-	newProject->setParent(fileSystem);
-	auto load = createButton("Load", "Load");
-	load->setParent(fileSystem);
-	auto save = createButton("Save", "Save");
-	save->setParent(fileSystem);
-	fileSystemLayout->addWidget(newProject);
-	fileSystemLayout->addWidget(load);
-	fileSystemLayout->addWidget(save);
-	//fileSystemLayout->addStretch(1);
-	fileSystem->setLayout(fileSystemLayout);
+	inputArea->addWidget(inputTextEdit);
+	inputArea->addWidget(recommnedButton);
+	inputArea->addStretch(1);
+	input->setLayout(inputArea);
 
-	layerHandlers = new QGroupBox("Layers");
-	QVBoxLayout * layoutLayers = new QVBoxLayout();
+	QGroupBox * output = new QGroupBox("Output");
+	QGroupBox * outputButtons = new QGroupBox("Output");
+	QHBoxLayout * outputArea = new QHBoxLayout();
+	auto outputTextEdit = createLineEdit("output", { 0.03f*width ,0.05f* height }, { 500,500 });
+	outputTextEdit->setParent(this);
+	outputArea->addWidget(outputTextEdit);
 	
-	auto slider = createSlider("Radius Control");
-	slider->setTickInterval(1);
-	slider->setOrientation(Qt::Horizontal);
-	slider->setTickPosition(QSlider::TicksBelow);
-	slider->setRange(0, 9);
-	slider->setSingleStep(1);
+	QVBoxLayout * outputButtonArea = new QVBoxLayout();
+	auto button1 = createButton("button1", "button1", { 0,0 });
+	auto button2 = createButton("button2", "button2", { 0,0 });
+	auto button3 = createButton("button3", "button3", { 0,0 });
+	auto button4 = createButton("button4", "button4", { 0,0 });
+	button1->setParent(this);
+	button2->setParent(this);
+	button3->setParent(this);
+	button4->setParent(this);
+	outputButtonArea->addWidget(button1);
+	outputButtonArea->addWidget(button2);
+	outputButtonArea->addWidget(button3);
+	outputButtonArea->addWidget(button4);
+	outputButtonArea->addStretch(1);
+	outputButtons->setLayout(outputButtonArea);
+	outputArea->addWidget(outputButtons);
 
-	layoutLayers->addWidget(slider);
-	layerHandlers->setLayout(layoutLayers);
-	fileSystemLayout->addWidget(layerHandlers);
-	fileSystemLayout->addStretch(1);
-	//layerHandlers->setVisible(false);
-
-	UICreation = new QGroupBox("User Interface");
-	QVBoxLayout * levelCreationLayout = new QVBoxLayout();
-	auto CreateButton = createButton("Create Button", "Create Button"); // temporary for testing flexibility
-	auto createNewGameObject = createButton("New GameObject", "New GameObject");
-	auto edit = createButton("Edit", "Edit");
-	auto erase = createButton("Erase", "Erase");
-	levelCreationLayout->addWidget(CreateButton);
-	levelCreationLayout->addWidget(createNewGameObject);
-	levelCreationLayout->addWidget(edit);
-	levelCreationLayout->addWidget(erase);
-	levelCreationLayout->addStretch(1);
-	UICreation->setLayout(levelCreationLayout);
-	UICreation->setVisible(false);
-
-
-	//levelCreationLayout->addWidget(archtypeManager);
-	levelCreationLayout->addStretch(1);
-	archtypeManager->setVisible(false);
-
-	/*mainLayout->addWidget(fileSystem);
-	mainLayout->addWidget(layerHandlers);*/
-
-	/*mainLayout->addWidget(fileSystem);
-	mainLayout->addWidget(window = MainWindow::instance());
-	mainLayout->addWidget(UICreation);*/
-
-	mainLayout->addWidget(fileSystem);
-	//	mainLayout->addWidget(layerHandlers);
-	
-	mainLayout->addWidget(UICreation);
-	mainLayout->addWidget(archtypeManager);
+	output->setLayout(outputArea);
+	outputArea->addStretch(1);
+	mainLayout->addWidget(input);
+	mainLayout->addWidget(output);
+	mainLayout->addStretch(1);
 }
 
 
@@ -79,6 +59,8 @@ GUI::~GUI()
 
 GUI::GUI()
 {
+	mainLayout = new QVBoxLayout(this);
+	this->resize(800, 600);
 }
 
 
@@ -160,7 +142,7 @@ QSlider* GUI::createSlider(std::string name)
 }
 
 
-bool  GUI::checkProjectCreationStatus()
+bool  GUI::checkProjectCreationStatus() const
 {
 	return projectIsloaded;
 }

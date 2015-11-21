@@ -1,7 +1,7 @@
 #pragma once
 #include "QUtil.h"
 
-class GUI: public QWidget
+class GUI: public QDialog
 {
 public:
 	void initialize() ;
@@ -9,7 +9,7 @@ public:
 	GUI();
 private:
 
-	QHBoxLayout * mainLayout;
+	QVBoxLayout * mainLayout;
 
 	QGroupBox * fileSystem;
 	QGroupBox * layerHandlers;
@@ -28,6 +28,7 @@ private:
 	QLineEdit * getLineEdit(std::string);
 
 	QSlider * getSlider(std::string name);
+
 	QWidget * createButton(std::string key,				                  // key val for the map
 		std::string buttoneName,						                  // this saves the name of the button													        
 		glm::vec2 position = glm::vec2(0),				                  // this saves the position of the button												            
@@ -48,7 +49,7 @@ private:
 	bool projectIsloaded;
 
 	/*checks whether the project is loaded or a new project is created*/
-	bool checkProjectCreationStatus();
+	bool checkProjectCreationStatus() const;
 	/*set status of the project*/
 	void setStatus(bool status);
 

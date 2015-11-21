@@ -7,6 +7,7 @@ int main(int argc, char* argv[])
 	QApplication mainApplication(argc, argv);
 	GUI g;
 	g.show();
+	g.initialize();
 	mainApplication.exec();
 	
 }

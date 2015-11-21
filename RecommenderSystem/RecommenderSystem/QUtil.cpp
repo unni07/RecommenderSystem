@@ -52,6 +52,7 @@ QLineEdit*  QUtil::createLineEdit(std::string lineEditname,
 	)
 {
 	QLineEdit* lineEdit = new QLineEdit(lineEditname.c_str());
+	lineEdit->show();
 	lineEdit->move(position.x, position.y);
 	lineEdit->setFixedWidth(scale.x);
 	lineEdit->setFixedHeight(scale.y);
