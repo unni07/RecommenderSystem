@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 
-#include "Features.h"
+//#include "Features.h"
 
 
 #define NO_FEATURE 0xFFFFFFFF
@@ -18,12 +18,17 @@ public:
 		service_quality_(NO_FEATURE)
 		{}
 
+	Restaurant(const std::string &line, const std::string &city);
+
 	void setName(const std::string &name) { name_ = name; }
 	void setCity(const std::string &city) { city_ = city; }
 	void setDecorQuality(unsigned decor);
 	void setFoodQuality(unsigned food);
 	void setPriceRange(unsigned price);
 	void setServiceQuality(unsigned service);
+	void AddFeature(unsigned feat) { features_.push_back(feat); }
+
+	void RegisterFeatures();
 
 	float ComputeDistance(const Restaurant &rhs) const;
 

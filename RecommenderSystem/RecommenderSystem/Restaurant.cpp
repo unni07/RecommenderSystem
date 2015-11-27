@@ -1,8 +1,56 @@
 #include "precompiled.h"
 #include "Restaurant.h"
+#include "Features.h"
 #include <fstream>
 
+Restaurant::Restaurant(const std::string &line, const std::string &city)
+{
+	setCity(city);
 
+	unsigned name_start = line.find_first_of('\t') + 1;
+	unsigned name_end = line.find_last_of('\t');
+
+	std::string name = line.substr(name_start, name_end - name_start);
+	std::transform(name.begin(), name.end(), name.begin(), ::tolower);
+	name_ = name;
+
+	std::string features = line.substr(name_end + 1);
+
+	unsigned digit_start = 0;
+	while (digit_start < features.size())
+	{
+		unsigned feature_ID = std::atoi(features.substr(digit_start, 3).c_str());
+
+		const Feature *feature = FeatureDatabase::Get(feature_ID);
+
+		switch (feature->type_)
+		{
+		case Feature::enDecorQuality:
+			setDecorQuality(feature_ID);
+			break;
+
+		case Feature::enFoodQuality:
+			setFoodQuality(feature_ID);
+			break;
+
+		case Feature::enPriceRange:
+			setPriceRange(feature_ID);
+			break;
+
+		case Feature::enServiceQuality:
+			setServiceQuality(feature_ID);
+			break;
+
+		default:
+			features_.push_back(feature_ID);
+			break;
+		}
+
+		//const_cast<Feature *>(feature)->AddRestaurant(*this);
+
+		digit_start += 4;
+	}
+}
 
 void Restaurant::setDecorQuality(unsigned decor)
 {
@@ -40,6 +88,17 @@ void Restaurant::setServiceQuality(unsigned service)
 		service = 204;
 
 	service_quality_ = service;
+}
+
+void Restaurant::RegisterFeatures()
+{
+	for (auto feat : features_)
+	{
+		const Feature *feature = FeatureDatabase::Get(feat);
+
+		const_cast<Feature *>(feature)->AddRestaurant(this);
+
+	}
 }
 
 

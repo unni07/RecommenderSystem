@@ -1,7 +1,9 @@
 #pragma once
 
+//#include "Restaurant.h"
 
 class Restaurant;
+
 
 struct Feature
 {
@@ -18,7 +20,9 @@ struct Feature
 
 	unsigned ID_;
 
-	std::vector<Restaurant *> restaurants_;
+	void AddRestaurant(const Restaurant *res) { restaurants_.push_back(res); }
+
+	std::vector<const Restaurant *> restaurants_;
 };
 
 class FeatureDatabase
@@ -28,10 +32,14 @@ public:
 	static void Initialize();
 	//static void Terminate();
 
-	static std::vector<Restaurant> GetListOfRestaurentsByKeyword(const std::string &feature_name); // everything to lowercase!!
-	static std::vector<Restaurant> GetListOfRestaurentsByFeature(const Feature &features);
+	static const std::vector<std::string> GetFeatureNameList() { return feature_name_list_; }
+
+	static const Feature *Get(unsigned ID);
+	static const std::vector<const Restaurant *> GetListOfRestaurantsByKeyword(const std::string &feature_name); // everything to lowercase!!
+	static std::vector<Restaurant> GetListOfRestaurantsByFeature(const Feature &features);
 
 private:
 	static void ReadFeatures();
+	static std::vector<std::string> feature_name_list_;
 	static std::map<std::string, Feature> features_;
 };

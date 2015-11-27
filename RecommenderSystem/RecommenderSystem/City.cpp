@@ -12,52 +12,10 @@ City::City(const std::string &name) : name_(name)
 	{
 		std::getline(is, line);
 
-		unsigned name_start = line.find_first_of('\t') + 1;
-
-		unsigned name_end = line.find_last_of('\t');
-
-		Restaurant new_restaurant;
-
-		std::string name = line.substr(name_start, name_end - name_start);
-		new_restaurant.name_ = name;
-
-		std::string features = line.substr(name_end+1);
-
-		unsigned digit_start = 0;
-		while (digit_start < features.size())
-		{
-			unsigned feature_ID = std::atoi(features.substr(digit_start, 3).c_str());
-
-			const Feature *feature = FeatureDatabase::Get(feature_ID);
-
-			switch (feature->type_)
-			{
-			case Feature::enDecorQuality:
-				new_restaurant.decor_quality_ = feature_ID;
-				break;
-
-			case Feature::enFoodQuality:
-				new_restaurant.food_quality_ = feature_ID;
-				break;
-
-			case Feature::enPriceRange:
-				new_restaurant.price_range_ = feature_ID;
-				break;
-
-			case Feature::enServiceQuality:
-				new_restaurant.service_quality_ = feature_ID;
-				break;
-
-			default:
-				new_restaurant.features_.push_back(feature_ID);
-				break;
-			}
-
-
-			digit_start += 4;
-		}
+		Restaurant new_restaurant(line, name_);
 
 		restaurants_.push_back(new_restaurant);
+		restaurants_.back().RegisterFeatures();
 	}
 }
 
@@ -95,14 +53,14 @@ void CityDatabase::Initialize()
 	resu.setPriceRange(164);
 	resu.setServiceQuality(204);
 
-	resu.features_.push_back(253);
-	resu.features_.push_back(192);
-	resu.features_.push_back(174);
-	resu.features_.push_back(250);
-	resu.features_.push_back(200);
-	resu.features_.push_back(063);
-	resu.features_.push_back(197);
-	resu.features_.push_back(142);
+	resu.AddFeature(253);
+	resu.AddFeature(192);
+	resu.AddFeature(174);
+	resu.AddFeature(250);
+	resu.AddFeature(200);
+	resu.AddFeature(063);
+	resu.AddFeature(197);
+	resu.AddFeature(142);
 
 	cities_[City::new_york].FindBestMatch(resu);
 }
