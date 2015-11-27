@@ -19,6 +19,7 @@ public:
 		{}
 
 	void setName(const std::string &name) { name_ = name; }
+	void setCity(const std::string &city) { city_ = city; }
 	void setDecorQuality(unsigned decor);
 	void setFoodQuality(unsigned food);
 	void setPriceRange(unsigned price);
@@ -26,8 +27,9 @@ public:
 
 	float ComputeDistance(const Restaurant &rhs) const;
 
-//private:
+private:
 	std::string name_;
+	std::string city_;
 
 	std::vector<unsigned> features_;
 	unsigned	decor_quality_;

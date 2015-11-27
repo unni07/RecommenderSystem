@@ -1,10 +1,11 @@
+#include "precompiled.h"
 #include "City.h"
 #include <fstream>
 
 
 City::City(const std::string &name) : name_(name)
 {
-	std::ifstream is(name + ".txt");
+	std::ifstream is("Database/" + name + ".txt");
 
 	std::string line;
 	while (!is.eof())

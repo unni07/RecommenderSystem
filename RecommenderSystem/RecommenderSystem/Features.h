@@ -1,45 +1,8 @@
 #pragma once
 
-#include <vector>
-#include <string>
 
+class Restaurant;
 
-/*enum enDecorQuality
-{
-	Poor,
-	Fair,
-	Good,
-	Excellent,
-	Extraordinary,
-	Near_perfect
-};
-
-enum enFoodQuality
-{
-	Fair,
-	Good,
-	Excellent,
-	Extraordinary,
-	Near_perfect
-};
-
-enum enPriceRange
-{
-	Below_fifteen,
-	Between_fifteen_and_thirty,
-	Between_thirty_and_fifty,
-	Over_fifty
-};
-
-enum enServiceQuality
-{
-	Fair,
-	Good,
-	Excellent,
-	Extraordinary,
-	Near_perfect
-};
-*/
 struct Feature
 {
 	enum enType
@@ -52,6 +15,10 @@ struct Feature
 	} type_;
 
 	std::string name_;
+
+	unsigned ID_;
+
+	std::vector<Restaurant *> restaurants_;
 };
 
 class FeatureDatabase
@@ -59,11 +26,12 @@ class FeatureDatabase
 
 public:
 	static void Initialize();
-	static void Terminate();
+	//static void Terminate();
 
-	static const Feature *Get(unsigned ID);
+	static std::vector<Restaurant> GetListOfRestaurentsByKeyword(const std::string &feature_name); // everything to lowercase!!
+	static std::vector<Restaurant> GetListOfRestaurentsByFeature(const Feature &features);
 
 private:
 	static void ReadFeatures();
-	static std::vector<Feature> features_;
+	static std::map<std::string, Feature> features_;
 };

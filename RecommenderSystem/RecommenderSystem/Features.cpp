@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "Features.h"
 #include <fstream>
 
@@ -10,7 +11,7 @@ void FeatureDatabase::Initialize()
 
 void FeatureDatabase::ReadFeatures()
 {
-	std::ifstream is("features.txt");
+	std::ifstream is("Database/features.txt");
 
 	std::string line;
 	while (!is.eof())
@@ -46,4 +47,3 @@ const Feature *FeatureDatabase::Get(unsigned ID)
 
 	return &features_[ID];
 }
-

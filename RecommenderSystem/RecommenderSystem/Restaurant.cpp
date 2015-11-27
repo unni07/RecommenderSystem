@@ -1,5 +1,7 @@
+#include "precompiled.h"
 #include "Restaurant.h"
 #include <fstream>
+
 
 
 void Restaurant::setDecorQuality(unsigned decor)
