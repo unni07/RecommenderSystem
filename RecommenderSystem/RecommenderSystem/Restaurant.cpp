@@ -46,8 +46,6 @@ Restaurant::Restaurant(const std::string &line, const std::string &city)
 			break;
 		}
 
-		//const_cast<Feature *>(feature)->AddRestaurant(*this);
-
 		digit_start += 4;
 	}
 }
@@ -97,7 +95,6 @@ void Restaurant::RegisterFeatures()
 		const Feature *feature = FeatureDatabase::Get(feat);
 
 		const_cast<Feature *>(feature)->AddRestaurant(this);
-
 	}
 }
 

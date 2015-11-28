@@ -35,8 +35,8 @@ public:
 	static const std::vector<std::string> GetFeatureNameList() { return feature_name_list_; }
 
 	static const Feature *Get(unsigned ID);
-	static const std::vector<const Restaurant *> GetListOfRestaurantsByKeyword(const std::string &feature_name); // everything to lowercase!!
-	static std::vector<Restaurant> GetListOfRestaurantsByFeature(const Feature &features);
+	static const std::vector<const Restaurant *> GetListOfRestaurantsByKeyword(const std::string &feature_name);
+	static const std::vector<const Restaurant *> GetListOfRestaurantsByKeywordList(const std::vector<std::string> &feature_name_list);
 
 private:
 	static void ReadFeatures();
