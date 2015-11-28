@@ -200,3 +200,46 @@ std::vector<const Restaurant *> FeatureDatabase::GetClosestRestaurants(const std
 	restaurants.push_back(third_best);
 	return restaurants;
 }
+
+std::vector<const Restaurant *> FeatureDatabase::GetClosestRestaurants(const std::vector<std::string> &feature_name_list, const std::vector<std::string> &cities)
+{
+	std::set<const Restaurant *> list_of_restaurants;
+
+	for (auto feature_name : feature_name_list)
+	{
+		if (features_.find(feature_name) == features_.end())
+			continue;
+
+		for (auto restaurant : features_[feature_name].restaurants_)
+		{
+			auto found = std::find(cities.begin(), cities.end(), restaurant->city());
+			if (found != cities.end())
+				list_of_restaurants.insert(restaurant);
+		}
+	}
+
+
+	float best_dist = std::numeric_limits<float>::max();
+	const Restaurant *best_rest = nullptr;
+	const Restaurant *second_best = nullptr;
+	const Restaurant *third_best = nullptr;
+
+	for (auto restaurant : list_of_restaurants)
+	{
+		float dist = restaurant->ComputeDistance(feature_name_list);
+
+		if (dist < best_dist)
+		{
+			best_dist = dist;
+			third_best = second_best;
+			second_best = best_rest;
+			best_rest = restaurant;
+
+		}
+	}
+	std::vector<const Restaurant *> restaurants;
+	restaurants.push_back(best_rest);
+	restaurants.push_back(second_best);
+	restaurants.push_back(third_best);
+	return restaurants;
+}
