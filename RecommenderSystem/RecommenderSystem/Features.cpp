@@ -1,7 +1,7 @@
 #include "precompiled.h"
 #include "Features.h"
-#include <fstream>
-#include <set>
+//#include <fstream>
+//#include <set>
 #include "Restaurant.h"
 
 std::vector<std::string>		FeatureDatabase::feature_name_list_;
@@ -106,7 +106,7 @@ const std::vector<const Restaurant *> FeatureDatabase::GetListOfRestaurantsByKey
 	auto it2 = list_of_restaurants.begin(); it2++;
 	std::vector<const Restaurant *> dest;
 #pragma warning(disable : 4996)
-	std::set_intersection(it1->begin(), it1->end(), it2->begin(), it2->end(), dest);
+	//std::set_intersection(it1->begin(), it1->end(), it2->begin(), it2->end(), dest);
 
 	auto end = list_of_restaurants.end();
 	for (; it2 != end; it2++)
@@ -114,7 +114,7 @@ const std::vector<const Restaurant *> FeatureDatabase::GetListOfRestaurantsByKey
 		std::vector<const Restaurant *> temp = dest;
 
 #pragma warning(disable : 4996)
-		std::set_intersection(temp.begin(), temp.end(), it2->begin(), it2->end(), dest);
+		//std::set_intersection(temp.begin(), temp.end(), it2->begin(), it2->end(), dest);
 	}
 
 	return dest;
@@ -145,7 +145,7 @@ const std::vector<const Restaurant *> FeatureDatabase::GetListOfRestaurantsByKey
 	auto it2 = list_of_restaurants.begin(); it2++;
 	std::vector<const Restaurant *> dest;
 #pragma warning(disable : 4996)
-	std::set_intersection(it1->begin(), it1->end(), it2->begin(), it2->end(), dest);
+	//std::set_intersection(it1->begin(), it1->end(), it2->begin(), it2->end(), dest);
 
 	auto end = list_of_restaurants.end();
 	for (; it2 != end; it2++)
@@ -153,7 +153,7 @@ const std::vector<const Restaurant *> FeatureDatabase::GetListOfRestaurantsByKey
 		std::vector<const Restaurant *> temp = dest;
 
 #pragma warning(disable : 4996)
-		std::set_intersection(temp.begin(), temp.end(), it2->begin(), it2->end(), dest);
+		//std::set_intersection(temp.begin(), temp.end(), it2->begin(), it2->end(), dest);
 	}
 
 	return dest;

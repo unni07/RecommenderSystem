@@ -13,7 +13,7 @@
 #include <ctype.h>
 #include <iomanip>
 #include <vector>
-
+#include <set>
 //QT
 #include <QTOpenGL\QGLwidget>
 #include <QTCore\QTimer>

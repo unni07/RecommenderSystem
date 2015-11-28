@@ -1,7 +1,5 @@
 #pragma once
 
-#include <vector>
-#include <string>
 
 
 #define NO_FEATURE 0xFFFFFFFF

@@ -9,7 +9,7 @@ private:
 	KeyWordSearch();
 	~KeyWordSearch();
 	/*this will act like a dictionary which will reduce the search time*/
-	std::map<char, std::vector<std::string>> featuresMap;
+	std::map<std::string, std::vector<std::string>> featuresMap;
 	/*this will save the cleansed keywors string and it will be passed to the recommender system to get the associated resturants*/
 	std::vector<std::string> keyWords;
 
@@ -23,5 +23,7 @@ private:
 	std::string removePreoposition(std::string featureName);
 	/*binary search for quicker output*/
 	bool binarySearch(std::string wordTocheck);
+	/*percentage of match*/
+	float percentageMatched(std::string keyword, std::string searchString) const;
 };
 

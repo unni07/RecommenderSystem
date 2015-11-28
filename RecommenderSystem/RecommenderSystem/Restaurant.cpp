@@ -1,7 +1,7 @@
 #include "precompiled.h"
 #include "Restaurant.h"
 #include "Features.h"
-#include <fstream>
+
 
 Restaurant::Restaurant(const std::string &line, const std::string &city)
 {
