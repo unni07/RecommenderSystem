@@ -19,7 +19,7 @@ City::City(const std::string &name) : name_(name)
 	}
 }
 
-Restaurant City::FindBestMatch(const Restaurant &match)
+/*Restaurant City::FindBestMatch(const Restaurant &match)
 {
 	float best_dist = std::numeric_limits<float>::max();
 	Restaurant best_rest;
@@ -36,7 +36,7 @@ Restaurant City::FindBestMatch(const Restaurant &match)
 	}
 
 	return best_rest;
-}
+}*/
 
 
 
@@ -45,24 +45,6 @@ std::map<City::enCities, City> CityDatabase::cities_;
 void CityDatabase::Initialize()
 {
 	ReadCities();
-
-	Restaurant resu;
-	resu.setName("resu");
-	resu.setDecorQuality(52);
-	resu.setFoodQuality(74);
-	resu.setPriceRange(164);
-	resu.setServiceQuality(204);
-
-	resu.AddFeature(253);
-	resu.AddFeature(192);
-	resu.AddFeature(174);
-	resu.AddFeature(250);
-	resu.AddFeature(200);
-	resu.AddFeature(063);
-	resu.AddFeature(197);
-	resu.AddFeature(142);
-
-	cities_[City::new_york].FindBestMatch(resu);
 }
 
 void CityDatabase::ReadCities()
