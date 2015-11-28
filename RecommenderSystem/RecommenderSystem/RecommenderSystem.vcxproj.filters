@@ -25,6 +25,12 @@
     <Filter Include="Utility">
       <UniqueIdentifier>{69d0305c-a994-4c0b-9ea5-a9878e9bb16f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="CityDetails">
+      <UniqueIdentifier>{90e92144-db77-48ff-af5e-b62ab0757c3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RestaurantDetails">
+      <UniqueIdentifier>{ba31e019-766e-4c3d-9459-bbf2f339142d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -39,14 +45,17 @@
     <ClCompile Include="QUtil.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="City.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Features.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="City.cpp">
+      <Filter>CityDetails</Filter>
+    </ClCompile>
     <ClCompile Include="Restaurant.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>RestaurantDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyWordSearch.cpp">
+      <Filter>Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -59,14 +68,17 @@
     <ClInclude Include="QUtil.h">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="City.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Features.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="City.h">
+      <Filter>CityDetails</Filter>
+    </ClInclude>
     <ClInclude Include="Restaurant.h">
-      <Filter>Header Files</Filter>
+      <Filter>RestaurantDetails</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyWordSearch.h">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,9 +1,11 @@
 #include "precompiled.h"
 #include "GUI.h"
+#include "KeyWordSearch.h"
 
 
 void GUI::initialize() 
 {
+	KeyWordSearch::getInstance().initialize();
 	QGroupBox * input = new QGroupBox("Input");
 	QHBoxLayout * inputArea = new QHBoxLayout();
 	int width = this->width();
