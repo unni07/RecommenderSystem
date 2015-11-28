@@ -3,8 +3,6 @@
 #include <vector>
 #include <string>
 
-//#include "Features.h"
-
 
 #define NO_FEATURE 0xFFFFFFFF
 
@@ -22,6 +20,7 @@ public:
 
 	void setName(const std::string &name) { name_ = name; }
 	void setCity(const std::string &city) { city_ = city; }
+	std::string city() const { return city_; }
 	void setDecorQuality(unsigned decor);
 	void setFoodQuality(unsigned food);
 	void setPriceRange(unsigned price);
@@ -30,7 +29,7 @@ public:
 
 	void RegisterFeatures();
 
-	float ComputeDistance(const Restaurant &rhs) const;
+	float ComputeDistance(const std::vector<std::string> &feature_list) const;
 
 private:
 	std::string name_;

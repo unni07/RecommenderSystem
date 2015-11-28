@@ -19,7 +19,7 @@ City::City(const std::string &name) : name_(name)
 	}
 }
 
-Restaurant City::FindBestMatch(const Restaurant &match)
+/*Restaurant City::FindBestMatch(const Restaurant &match)
 {
 	float best_dist = std::numeric_limits<float>::max();
 	Restaurant best_rest;
@@ -36,7 +36,7 @@ Restaurant City::FindBestMatch(const Restaurant &match)
 	}
 
 	return best_rest;
-}
+}*/
 
 
 

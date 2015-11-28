@@ -99,35 +99,56 @@ void Restaurant::RegisterFeatures()
 }
 
 
-float Restaurant::ComputeDistance(const Restaurant &rhs) const
+float Restaurant::ComputeDistance(const std::vector<std::string> &feature_list) const
 {
 	float distance = 0;
-
-	if (rhs.decor_quality_ < decor_quality_)
-		distance += decor_quality_ - rhs.decor_quality_;
-
-	if (rhs.food_quality_ < food_quality_)
-		distance += food_quality_ - rhs.food_quality_;
-
-	if (rhs.price_range_ > price_range_)
-		distance += rhs.price_range_ - price_range_;
-
-	if (rhs.service_quality_ < service_quality_)
-		distance += service_quality_ - rhs.service_quality_;
-
 	unsigned checked = 0;
-	for (unsigned feature : features_)
+
+	for (auto feature_name : feature_list)
 	{
-		auto found = std::find(rhs.features_.begin(), rhs.features_.end(), feature);
+		const Feature *feature = FeatureDatabase::Get(feature_name);
 
-		if (found == rhs.features_.end())
-			distance += 1.0f;
-		else
+		switch (feature->type_)
+		{
+		case Feature::enDecorQuality :
+			if(decor_quality_  < feature->ID_)
+				distance += feature->ID_ - decor_quality_;
 			checked++;
-	}
+			break;
 
-	if (checked < rhs.features_.size())
-		distance += 0.1f * (rhs.features_.size() - checked);
+		case Feature::enFoodQuality:
+			if (food_quality_  < feature->ID_)
+				distance += feature->ID_ - food_quality_;
+			checked++;
+			break;
+
+		case Feature::enPriceRange:
+			if (service_quality_ > feature->ID_)
+				distance += service_quality_ - feature->ID_;
+			checked++;
+			break;
+
+		case Feature::enServiceQuality:
+			if (food_quality_  < feature->ID_)
+				distance += feature->ID_ - food_quality_;
+			checked++;
+			break;
+
+		case Feature::enGeneric:
+			auto found = std::find(features_.begin(), features_.end(), (*feature).ID_);
+
+			if (found == features_.end())
+				distance += 1.0f;
+			else
+				checked++;
+
+			break;
+		};
+
+
+		if (checked < features_.size())
+			distance += 0.1f * (features_.size() - checked);
+	}
 
 	return distance;
 }
