@@ -23,7 +23,9 @@ void GUI::initialize()
 	QGroupBox * output = new QGroupBox("Output");
 	QGroupBox * outputButtons = new QGroupBox("Output");
 	QHBoxLayout * outputArea = new QHBoxLayout();
-	auto outputTextEdit = createLineEdit("output", { 0.03f*width ,0.05f* height }, { 500,500 });
+	//auto outputTextEdit = createLineEdit("output", { 0.03f*width ,0.05f* height }, { 500,500 });
+	auto outputTextEdit = createTextDisplay("OutputText", {0,0}, { 500,500 }, false);
+	outputTextEdit->setText(" OHMYGOD");
 	outputTextEdit->setParent(this);
 	outputArea->addWidget(outputTextEdit);
 	
@@ -126,6 +128,19 @@ QLineEdit*GUI::createLineEdit(std::string key, glm::vec2 position, glm::vec2 sca
 		return lineEdits[key];
 	}
 
+	return required->second;
+}
+
+QTextEdit * GUI::createTextDisplay(std::string key, glm::vec2 position, glm::vec2 scale, bool readOnly)
+{
+	auto itrEnd = textDisplays.end();
+	auto required = textDisplays.find(key);
+	if (required == itrEnd)
+	{
+		auto textEdit = QUtil::instance().createTextDisplay(position, scale, readOnly);
+		textDisplays[key] = textEdit;
+		return textEdit;
+	}
 	return required->second;
 }
 

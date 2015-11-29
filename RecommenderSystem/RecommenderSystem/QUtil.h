@@ -6,6 +6,8 @@ typedef std::unordered_map<std::string, QPushButton*> mapButtons;
 typedef std::unordered_map<std::string, QLineEdit*> mapQlineEdit;
 typedef std::unordered_map<std::string, QComboBox*> mapComboBox;
 
+typedef std::unordered_map<std::string, QTextEdit*> mpaTextDisplay;
+
 typedef std::vector<QLabel*> listLabel;
 typedef std::unordered_map<std::string, QSlider*> mapSliders;
 enum GUIElements
@@ -32,6 +34,8 @@ public:
 		                       glm::vec2 position = glm::vec2(0,0),      // this saves the position of the button
           					   glm::vec2 scale = glm::vec2(60,30)        // this scales the button
 							  );
+
+	QTextEdit * createTextDisplay(glm::vec2 position = glm::vec2(0), glm::vec2 scale = glm::vec2(100, 100), bool readOnly = false);
 	QSlider * createSlider();
 	/*update window width and height*/
 	void updateDimension(int x, int y);

@@ -20,7 +20,7 @@ private:
 	mapButtons buttons;
 	mapComboBox comboBox;
 	mapQlineEdit lineEdits;
-
+	mpaTextDisplay textDisplays;
 	mapSliders sliders;
 
 	QPushButton * getButton(std::string);
@@ -43,6 +43,8 @@ private:
 	QLabel * createLabel(std::string,
 		glm::vec2                    // position
 		);
+
+	QTextEdit * createTextDisplay(std::string key, glm::vec2 position = glm::vec2(0),glm::vec2 scale = glm::vec2(100,100),bool readOnly = false);
 
 	QSlider * createSlider(std::string name);
 

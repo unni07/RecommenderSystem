@@ -142,7 +142,7 @@ std::string KeyWordSearch::removePreoposition(std::string featureName)
 bool KeyWordSearch::binarySearch(std::string wordTocheck)
 {
 	unsigned int low = 0;
-	unsigned int high = prepositionList.size() - 1;
+	size_t high = prepositionList.size() - 1;
 	unsigned int middle;
 
 	while((high - low) > 1)

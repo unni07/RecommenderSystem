@@ -59,6 +59,16 @@ QLineEdit*  QUtil::createLineEdit(std::string lineEditname,
 	return lineEdit;
 }
 
+QTextEdit * QUtil::createTextDisplay(glm::vec2 position, glm::vec2 scale, bool readOnly)
+{
+	QTextEdit * textedit = new QTextEdit();
+	textedit->move(position.x, position.y);
+	textedit->setFixedWidth(scale.x);
+	textedit->setFixedHeight(scale.y);
+	textedit->setReadOnly(readOnly);
+	return textedit;
+}
+
 QSlider* QUtil::createSlider()
 {
 	QSlider * slider = new QSlider();
