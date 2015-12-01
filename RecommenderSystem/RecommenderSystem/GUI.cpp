@@ -28,10 +28,10 @@ void GUI::initialize()
 	outputArea->addWidget(outputTextEdit);
 	
 	QVBoxLayout * outputButtonArea = new QVBoxLayout();
-	auto button1 = createButton("button1", "button1", { 0,0 });
-	auto button2 = createButton("button2", "button2", { 0,0 });
-	auto button3 = createButton("button3", "button3", { 0,0 });
-	auto button4 = createButton("button4", "button4", { 0,0 });
+	auto button1 = createCheckBox("button1", "button1", { 0,0 },false);
+	auto button2 = createCheckBox("button2", "button2", { 0,0 },false);
+	auto button3 = createCheckBox("button3", "button3", { 0,0 },false);
+	auto button4 = createCheckBox("button4", "button4", { 0,0 },false);
 	button1->setParent(this);
 	button2->setParent(this);
 	button3->setParent(this);
@@ -49,6 +49,8 @@ void GUI::initialize()
 	mainLayout->addWidget(input);
 	mainLayout->addWidget(output);
 	mainLayout->addStretch(1);
+
+	connectToTask();
 }
 
 
@@ -129,6 +131,18 @@ QLineEdit*GUI::createLineEdit(std::string key, glm::vec2 position, glm::vec2 sca
 	return required->second;
 }
 
+QCheckBox* GUI::createCheckBox(std::string key, std::string boxName, glm::vec2 position, bool checked)
+{
+	auto checkBox = checkBoxes.find(key);
+	if(checkBox == checkBoxes.end())
+	{
+		auto newCheckBox = QUtil::instance().createCheckbox(boxName, position, checked);
+		checkBoxes[key] = newCheckBox;
+		return newCheckBox;
+	}
+	return checkBox->second;
+}
+
 QSlider* GUI::createSlider(std::string name)
 {
 	auto itrEnd = sliders.end();
@@ -149,6 +163,38 @@ bool  GUI::checkProjectCreationStatus() const
 	return projectIsloaded;
 }
 
+void GUI::connectToTask()
+{
+	auto find = getButton("RecommendButton");
+	 
+	QObject::connect(find,SIGNAL(clicked()),this,SLOT(search()));
+}
 
+void GUI::search()
+{
+	auto textEdit = getLineEdit("input");
+	auto qSearchString = textEdit->text();
+	if(qSearchString.size() == 0)
+	{
+		return;
+	}
+	std::string searchString = QUtil::instance().convertQStringtoStdString(qSearchString);
+	KeyWordSearch::getInstance().search(searchString);
+	checkBoxSelected();
+}
 
+void GUI::checkBoxSelected()
+{
+	auto itr = checkBoxes.begin();
+	auto itrEnd = checkBoxes.end();
+	std::vector<std::string> checkedBoxes;
+	while(itr != itrEnd)
+	{
+		if(itr->second->isChecked())
+		{
+			checkedBoxes.push_back(QUtil::instance().convertQStringtoStdString(itr->second->text()));
+		}
+		++itr;
+	}
+}
 

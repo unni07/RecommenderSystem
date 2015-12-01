@@ -39,9 +39,6 @@
     <ClCompile Include="precompiled.cpp">
       <Filter>Precompiled Header</Filter>
     </ClCompile>
-    <ClCompile Include="GUI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="QUtil.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
@@ -57,13 +54,16 @@
     <ClCompile Include="KeyWordSearch.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI_moc.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="precompiled.h">
       <Filter>Precompiled Header</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="QUtil.h">
       <Filter>Utility</Filter>
@@ -79,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="KeyWordSearch.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

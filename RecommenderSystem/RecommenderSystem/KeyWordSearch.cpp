@@ -35,13 +35,14 @@ void KeyWordSearch::initialize()
 
 		++itr;
 	}
-	search("I feel like Eating in historic place");
+	search("romantic place");
 }
 
-void KeyWordSearch::search(std:: string name)
+std::vector<std::string> KeyWordSearch::search(std:: string name)
 {
+	std::vector<std::string> result;
 	if (name.size() == 0)
-		return;
+		return result;
 	
 	/*
 	search string "SOmething historical"
@@ -60,10 +61,6 @@ void KeyWordSearch::search(std:: string name)
 		auto itrEnd = featuresMap.end();
 		while (itr != itrEnd)
 		{
-			if(itr->first == "historic")
-			{
-				int a = 10;
-			}
 			auto percentage = percentageMatched(itr->first, *itrVector);
 			
 			if (percentage >= 70.0f)
@@ -74,7 +71,7 @@ void KeyWordSearch::search(std:: string name)
 		}
 		++itrVector;
 	}
-	
+	return result;
 	
 }
 

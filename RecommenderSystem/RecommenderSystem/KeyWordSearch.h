@@ -3,8 +3,9 @@ class KeyWordSearch
 {
 public:
 	static KeyWordSearch& getInstance();
+	
 	void initialize();
-	void search(std::string name);
+	std::vector<std::string> search(std::string name);
 private:
 	KeyWordSearch();
 	~KeyWordSearch();
@@ -25,5 +26,7 @@ private:
 	bool binarySearch(std::string wordTocheck);
 	/*percentage of match*/
 	float percentageMatched(std::string keyword, std::string searchString) const;
+
+	
 };
 

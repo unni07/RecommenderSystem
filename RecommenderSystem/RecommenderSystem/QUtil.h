@@ -5,6 +5,7 @@
 typedef std::unordered_map<std::string, QPushButton*> mapButtons;
 typedef std::unordered_map<std::string, QLineEdit*> mapQlineEdit;
 typedef std::unordered_map<std::string, QComboBox*> mapComboBox;
+typedef std::unordered_map<std::string, QCheckBox*> mapCheckBox;
 
 typedef std::vector<QLabel*> listLabel;
 typedef std::unordered_map<std::string, QSlider*> mapSliders;
@@ -32,6 +33,11 @@ public:
 		                       glm::vec2 position = glm::vec2(0,0),      // this saves the position of the button
           					   glm::vec2 scale = glm::vec2(60,30)        // this scales the button
 							  );
+
+	QCheckBox * createCheckbox(std::string boxName = "",			     // this saves the name of the button
+		glm::vec2 position = glm::vec2(0, 0),      // this saves the position of the button
+		bool checked = false
+		);
 	QSlider * createSlider();
 	/*update window width and height*/
 	void updateDimension(int x, int y);

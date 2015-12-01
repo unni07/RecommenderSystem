@@ -3,6 +3,7 @@
 
 class GUI: public QDialog
 {
+	Q_OBJECT
 public:
 	void initialize() ;
 	~GUI();
@@ -20,7 +21,7 @@ private:
 	mapButtons buttons;
 	mapComboBox comboBox;
 	mapQlineEdit lineEdits;
-
+	mapCheckBox checkBoxes;
 	mapSliders sliders;
 
 	QPushButton * getButton(std::string);
@@ -44,6 +45,11 @@ private:
 		glm::vec2                    // position
 		);
 
+	QCheckBox * createCheckBox(std::string key,
+							   std::string boxName,
+							   glm::vec2 position = glm::vec2(0),
+							   bool checked = false);
+
 	QSlider * createSlider(std::string name);
 
 	bool projectIsloaded;
@@ -52,7 +58,12 @@ private:
 	bool checkProjectCreationStatus() const;
 	/*set status of the project*/
 	void setStatus(bool status);
-
-	
+	/*Connect the buttons*/
+	void connectToTask();
+private slots:
+	/*function to call Search*/
+	void search();
+	/*check check boxes selected*/
+	void checkBoxSelected();
 };
 
