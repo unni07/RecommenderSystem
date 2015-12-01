@@ -60,6 +60,8 @@ private:
 	void setStatus(bool status);
 	/*Connect the buttons*/
 	void connectToTask();
+	/*show output*/
+	void showOutput(std::vector<std::string> output);
 private slots:
 	/*function to call Search*/
 	void search();

@@ -67,15 +67,6 @@ GUI::GUI()
 	this->resize(800, 600);
 }
 
-
-
-
-
-
-
-
-
-
 QSlider* GUI::getSlider(std::string name)
 {
 	auto required = sliders.find(name);
@@ -168,6 +159,11 @@ void GUI::connectToTask()
 	auto find = getButton("RecommendButton");
 	 
 	QObject::connect(find,SIGNAL(clicked()),this,SLOT(search()));
+}
+
+void GUI::showOutput(std::vector<std::string> output)
+{
+	
 }
 
 void GUI::search()
