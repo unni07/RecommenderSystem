@@ -17,7 +17,7 @@ This are the feature types:
 		.below $15
 		.$15-$30
 		.$30-$50
-		.over-$50
+		.over $50
 	-Service quality
 		.Fair
 		.Good

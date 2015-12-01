@@ -62,10 +62,14 @@ private:
 	void connectToTask();
 	/*show output*/
 	void showOutput(std::vector<std::string> output);
+	/*to read the feature lsist*/
+	void readFeatureList();
 private slots:
 	/*function to call Search*/
 	void search();
 	/*check check boxes selected*/
 	void checkBoxSelected();
+
+	std::map<std::string,std::vector<std::string>> featureList;
 };
 

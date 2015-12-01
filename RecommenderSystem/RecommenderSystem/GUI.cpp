@@ -5,6 +5,7 @@
 
 void GUI::initialize() 
 {
+	readFeatureList();
 	KeyWordSearch::getInstance().initialize();
 	QGroupBox * input = new QGroupBox("Input");
 	QHBoxLayout * inputArea = new QHBoxLayout();
@@ -163,6 +164,38 @@ void GUI::connectToTask()
 
 void GUI::showOutput(std::vector<std::string> output)
 {
+	
+}
+
+void GUI::readFeatureList()
+{
+
+	std::ifstream file;
+	file.open("IMPORANT.txt");
+	std::string line;
+	std::string key;
+	while (std::getline(file, line))
+	{
+		std::istringstream iss(line);
+		std::string word;
+		iss >> word;
+		if(word.at(0) == '-')
+		{
+			key = word;
+		}
+		if(word.at(0) == '.')
+		{
+			auto itr = featureList.find(key);
+			if (itr != featureList.end())
+			{
+				itr->second.push_back(word);
+			}
+			else
+				featureList[key].push_back(word);
+		}
+		
+	}
+	file.close();
 	
 }
 
