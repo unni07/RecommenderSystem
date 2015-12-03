@@ -35,7 +35,7 @@ void KeyWordSearch::initialize()
 
 		++itr;
 	}
-	search("romantic place");
+	//search("romantic place");
 }
 
 std::vector<std::string> KeyWordSearch::search(std:: string name)
@@ -71,6 +71,7 @@ std::vector<std::string> KeyWordSearch::search(std:: string name)
 		}
 		++itrVector;
 	}
+	auto str = FeatureDatabase::GetListOfRestaurantsByKeyword("ice cream");
 	return result;
 	
 }
@@ -171,7 +172,7 @@ float KeyWordSearch::percentageMatched(std::string keyword, std::string searchSt
 		return 0.0f;
 	//std::sort(keyword.begin(), keyword.end());
 	//std::sort(searchString.begin(), searchString.end());
-	size_t minSize = std::min(sizeKeyWord, sizesearchString);
+	size_t minSize = std::max(sizeKeyWord, sizesearchString);
 
 
 	if(strstr(keyword.c_str(),searchString.c_str()) || strstr(searchString.c_str(), keyword.c_str()))
