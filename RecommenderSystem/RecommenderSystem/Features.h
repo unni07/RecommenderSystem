@@ -41,9 +41,11 @@ public:
 	static const Feature *Get(const std::string &name);
 
 	/// Pass a feature name and get the list of restaurants asociated to that feature
+	static const std::vector<std::string> GetListOfRestaurantNamesByKeyword(const std::string &feature_name);
 	static const std::vector<const Restaurant *> GetListOfRestaurantsByKeyword(const std::string &feature_name);
 	static const std::vector<const Restaurant *> GetListOfRestaurantsByKeyword(const std::string &feature_name, const std::vector<std::string> &cities);
 	/// Pass a feature name list and get the list of restaurants asociated to all of those features
+	static const std::vector<std::string> GetListOfRestaurantNamesByKeywordList(const std::vector<std::string> &feature_name_list);
 	static const std::vector<const Restaurant *> GetListOfRestaurantsByKeywordList(const std::vector<std::string> &feature_name_list);
 	static const std::vector<const Restaurant *> GetListOfRestaurantsByKeywordList(const std::vector<std::string> &feature_name_list, const std::vector<std::string> &cities);
 	/// Pass a feature name list and get a list of restaurants that are close enough to this features

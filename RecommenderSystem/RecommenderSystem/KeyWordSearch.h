@@ -5,13 +5,13 @@ public:
 	static KeyWordSearch& getInstance();
 	
 	void initialize();
-	std::vector<std::vector<std::string>> search(std::string name);
+	std::vector<std::string> search(std::string name);
 private:
 	KeyWordSearch();
 	~KeyWordSearch();
 	/*this will act like a dictionary which will reduce the search time*/
 	std::map<std::string, std::vector<std::string>> featuresMap;
-	/*this will save the cleansed keywords string and it will be passed to the recommender system to get the associated resturants*/
+	/*this will save the cleansed keywords string and it will be passed to the recommender system to get the associated restaurants*/
 	std::vector<std::string> keyWords;
 
 	const std::string fillFeatureMap(const std::string);
@@ -27,7 +27,7 @@ private:
 	/*percentage of match*/
 	float percentageMatched(std::string keyword, std::string searchString) const;
 	/**/
-	void fetchData(std::vector<std::vector<std::string>> hits, std::vector<std::vector<std::string>>& result);
+	void fetchData(std::vector<std::vector<std::string>> hits, std::vector<std::string>& result);
 	//bool binarySearch(std::vector<std::string> arr,int low,int high,std::string val);
 
 	

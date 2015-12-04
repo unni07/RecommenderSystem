@@ -110,8 +110,8 @@ float Restaurant::ComputeDistance(const std::vector<std::string> &feature_list) 
 
 		switch (feature->type_)
 		{
-		case Feature::enDecorQuality :
-			if(decor_quality_  < feature->ID_)
+		case Feature::enDecorQuality:
+			if (decor_quality_ < feature->ID_)
 				distance += feature->ID_ - decor_quality_;
 			checked++;
 			break;
@@ -129,7 +129,7 @@ float Restaurant::ComputeDistance(const std::vector<std::string> &feature_list) 
 			break;
 
 		case Feature::enServiceQuality:
-			if (food_quality_  < feature->ID_)
+			if (food_quality_ < feature->ID_)
 				distance += feature->ID_ - food_quality_;
 			checked++;
 			break;
@@ -152,3 +152,8 @@ float Restaurant::ComputeDistance(const std::vector<std::string> &feature_list) 
 
 	return distance;
 }
+
+//std::string Restaurant::getNameOfRestaurant() const
+//{
+//	return name_;
+//}

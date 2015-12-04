@@ -28,8 +28,7 @@ public:
 	void RegisterFeatures();
 
 	float ComputeDistance(const std::vector<std::string> &feature_list) const;
-
-private:
+	//std::string getNameOfRestaurant() const;
 	std::string name_;
 	std::string city_;
 

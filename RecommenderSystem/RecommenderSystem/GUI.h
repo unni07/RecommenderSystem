@@ -28,6 +28,7 @@ private:
 	QPushButton * getButton(std::string);
 	QComboBox * getComboBox(std::string, QWidget * ptr);
 	QLineEdit * getLineEdit(std::string);
+	QTextEdit * getTextEdit(std::string);
 
 	QSlider * getSlider(std::string name);
 
@@ -67,6 +68,8 @@ private:
 	void showOutput(std::vector<std::string> output);
 	/*to read the feature lsist*/
 	void readFeatureList();
+	/*Display the output*/
+	void Display(const std::vector<std::string>& output);
 private slots:
 	/*function to call Search*/
 	void search();

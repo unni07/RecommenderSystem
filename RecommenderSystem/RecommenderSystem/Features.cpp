@@ -64,6 +64,16 @@ const Feature *FeatureDatabase::Get(const std::string &name)
 }
 
 
+const std::vector<std::string> FeatureDatabase::GetListOfRestaurantNamesByKeyword(const std::string &feature_name)
+{
+	std::vector<std::string> restaurant_names_;
+
+	for (auto it : features_[feature_name].restaurants_)
+		restaurant_names_.push_back(it->name_);
+
+	return restaurant_names_;
+}
+
 const std::vector<const Restaurant *> FeatureDatabase::GetListOfRestaurantsByKeyword(const std::string &feature_name)
 {
 	if (features_.find(feature_name) == features_.end())
@@ -89,6 +99,39 @@ const std::vector<const Restaurant *> FeatureDatabase::GetListOfRestaurantsByKey
 	return restaurants;
 }
 
+
+const std::vector<std::string> FeatureDatabase::GetListOfRestaurantNamesByKeywordList(const std::vector<std::string> &feature_name_list)
+{
+	std::vector<std::vector<const Restaurant *>> list_of_restaurants;
+	std::vector<std::string> restaurant_names_;
+
+	for (auto feature_name : feature_name_list)
+	{
+		if (features_.find(feature_name) == features_.end())
+			continue;
+
+		list_of_restaurants.push_back(features_[feature_name].restaurants_);
+	}
+
+	auto it1 = list_of_restaurants.begin();
+	auto it2 = list_of_restaurants.begin(); it2++;
+	std::vector<const Restaurant *> dest;
+
+	intersection(*it1, *it2, dest);
+
+	auto end = list_of_restaurants.end();
+	for (; it2 != end; it2++)
+	{
+		std::vector<const Restaurant *> temp = dest;
+
+		intersection(temp, *it2, dest);
+	}
+
+	for (auto it : dest)
+		restaurant_names_.push_back(it->name_);
+
+	return restaurant_names_;
+}
 
 const std::vector<const Restaurant *> FeatureDatabase::GetListOfRestaurantsByKeywordList(const std::vector<std::string> &feature_name_list)
 {

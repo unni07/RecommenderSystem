@@ -12,7 +12,9 @@ KeyWordSearch& KeyWordSearch::getInstance()
 void KeyWordSearch::initialize()
 {
 
-	fillUpWithPreposition();	
+	fillUpWithPreposition();
+	cleanTheFilter("something");
+	
 	auto listOfFeatures =  FeatureDatabase::GetFeatureNameList();
 	auto itr = listOfFeatures.begin();
 	auto itrEnd = listOfFeatures.end();
@@ -31,12 +33,16 @@ void KeyWordSearch::initialize()
 
 		++itr;
 	}
-	
+<<<<<<< HEAD
+	search("romantic place");
+=======
+	search("i feel like lunch historic place");
+>>>>>>> 14d96c9b39298b8cff300d7c6536c584cc3d81c4
 }
 
-std::vector<std::string> KeyWordSearch::search(std:: string name)
+std::vector<std::vector<std::string>> KeyWordSearch::search(std:: string name)
 {
-	std::vector<std::string> result;
+	std::vector<std::vector<std::string>> result;
 	if (name.size() == 0)
 		return result;
 
@@ -186,11 +192,10 @@ float KeyWordSearch::percentageMatched(std::string keyword, std::string searchSt
 
 }
 
-void KeyWordSearch::fetchData(std::vector<std::vector<std::string>> hits, std::vector<std::string>& result)
+void KeyWordSearch::fetchData(std::vector<std::vector<std::string>> hits, std::vector<std::vector<std::string>>& result)
 {
 
 	//FeatureDatabase::GetListOfRestaurantsByKeyword()
-
 	auto itr = hits.begin();
 	auto itrEnd = hits.end();
 	while (itr != itrEnd)
@@ -199,13 +204,8 @@ void KeyWordSearch::fetchData(std::vector<std::vector<std::string>> hits, std::v
 		auto featureListEnd = itr->end();
 		while (featureList != featureListEnd)
 		{
-			auto output = (FeatureDatabase::GetListOfRestaurantNamesByKeyword(*featureList));
-			unsigned int i = 0;
-			auto size = output.size();
-			for (; i < size; i++)
-			{
-				result.push_back(output[i]);
-			}
+			auto t = FeatureDatabase::GetListOfRestaurantsByKeyword(*featureList);
+			
 			++featureList;
 		}
 		++itr;

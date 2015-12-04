@@ -26,7 +26,7 @@ void GUI::initialize()
 	QHBoxLayout * outputArea = new QHBoxLayout();
 	//auto outputTextEdit = createLineEdit("output", { 0.03f*width ,0.05f* height }, { 500,500 });
 	auto outputTextEdit = createTextDisplay("OutputText", {0,0}, { 500,500 }, false);
-	outputTextEdit->setText(" OHMYGOD");
+
 	outputTextEdit->setParent(this);
 	outputArea->addWidget(outputTextEdit);
 	
@@ -93,6 +93,12 @@ QLineEdit* GUI::getLineEdit(std::string lineEditName)
 {
 
 	auto required = lineEdits.find(lineEditName);
+	return required->second;
+}
+
+QTextEdit * GUI::getTextEdit(std::string name)
+{
+	auto required = textDisplays.find(name);
 	return required->second;
 }
 
@@ -214,6 +220,21 @@ void GUI::readFeatureList()
 	
 }
 
+void GUI::Display(const std::vector<std::string>& output)
+{
+	auto textEdit = getTextEdit("OutputText");
+	textEdit->clear();
+	textEdit->append("Based On the Search Result following are the restaurants we suggest");
+	auto itr = output.begin();
+	auto itrEnd = output.end();
+	while (itr != itrEnd)
+	{
+		textEdit->append((*itr).c_str());
+		++itr;
+	}
+	
+}
+
 void GUI::search()
 {
 	auto textEdit = getLineEdit("input");
@@ -223,7 +244,8 @@ void GUI::search()
 		return;
 	}
 	std::string searchString = QUtil::instance().convertQStringtoStdString(qSearchString);
-	KeyWordSearch::getInstance().search(searchString);
+	auto result = KeyWordSearch::getInstance().search(searchString);
+	Display(result);
 	checkBoxSelected();
 }
 
