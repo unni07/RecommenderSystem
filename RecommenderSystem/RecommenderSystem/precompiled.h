@@ -34,7 +34,7 @@
 #include <QTGui\QRadioButton>
 #include <QTGui\QIcon.h>
 #include <QTGui\QCheckBox>
-
+#include <QTGui\QTextEdit>
 //glm
 
 #include <glm\gtx\transform.hpp>

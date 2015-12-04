@@ -26,33 +26,26 @@ void KeyWordSearch::initialize()
 		while(itrV !=endItr)
 		{
 			//std::sort(itrV->begin(), itrV->end());
+			
 			featuresMap[*itrV].push_back(*itr);
 			++itrV;
 		}
-		/*char  firstchar = (*itr).at(0);
-		auto findinMap = featuresMap.find(firstchar);
-		featuresMap[firstchar].push_back(*itr);*/
 
 		++itr;
 	}
-	//search("romantic place");
+	search("romantic place");
 }
 
-std::vector<std::string> KeyWordSearch::search(std:: string name)
+std::vector<std::vector<std::string>> KeyWordSearch::search(std:: string name)
 {
-	std::vector<std::string> result;
+	std::vector<std::vector<std::string>> result;
 	if (name.size() == 0)
 		return result;
-	
-	/*
-	search string "SOmething historical"
-	feature name:: history
-	*/
 
 	std::transform(name.begin(), name.end(), name.begin(), tolower);
 	std::vector<std::string> cleansedSearchString = cleanTheFilter(name);
 	
-	std::vector<std::string> hits;
+	std::vector<std::vector<std::string>> hits;
 	auto itrVector = cleansedSearchString.begin();
 	auto itrVectorEnd = cleansedSearchString.end();
 	while (itrVector != itrVectorEnd)
@@ -65,13 +58,13 @@ std::vector<std::string> KeyWordSearch::search(std:: string name)
 			
 			if (percentage >= 70.0f)
 			{
-				hits.push_back(itr->first);
+				hits.push_back(itr->second);
 			}
 			++itr;
 		}
 		++itrVector;
 	}
-	auto str = FeatureDatabase::GetListOfRestaurantsByKeyword("ice cream");
+	fetchData(hits, result);
 	return result;
 	
 }
@@ -139,24 +132,24 @@ std::string KeyWordSearch::removePreoposition(std::string featureName)
 
 bool KeyWordSearch::binarySearch(std::string wordTocheck)
 {
-	unsigned int low = 0;
-	size_t high = prepositionList.size() - 1;
+	int low = 0;
+	int high = prepositionList.size() -1;
 	unsigned int middle;
 
-	while((high - low) > 1)
+	while(low <= high)
 	{
-		middle = (high + low) / 2;
+		middle = low + (high - low) / 2;
 		if(prepositionList[middle].compare(wordTocheck) == 0)
 		{
 			return true;
 		}
 		if(prepositionList[middle]<wordTocheck)
 		{
-			low = middle;
+			low = middle +1;
 		}
 		else
 		{
-			high = middle;
+			high = middle -1 ;
 		}
 	}
 	return false;
@@ -194,3 +187,28 @@ float KeyWordSearch::percentageMatched(std::string keyword, std::string searchSt
 	*/
 
 }
+
+void KeyWordSearch::fetchData(std::vector<std::vector<std::string>> hits, std::vector<std::vector<std::string>>& result)
+{
+
+	//FeatureDatabase::GetListOfRestaurantsByKeyword()
+	auto itr = hits.begin();
+	auto itrEnd = hits.end();
+	while (itr != itrEnd)
+	{
+		auto featureList = itr->begin();
+		auto featureListEnd = itr->end();
+		while (featureList != featureListEnd)
+		{
+			auto t = FeatureDatabase::GetListOfRestaurantsByKeyword(*featureList);
+			
+			++featureList;
+		}
+		++itr;
+	}
+}
+
+//bool KeyWordSearch::binarySearch(std::vector<std::string> arr, int low, int high, std::string val)
+//{
+//	return false;
+//}
