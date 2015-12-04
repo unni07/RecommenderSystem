@@ -55,4 +55,5 @@ private:
 	static void ReadFeatures();
 	static std::vector<std::string> feature_name_list_;
 	static std::map<std::string, Feature> features_;
+	static void intersection(const std::vector<const Restaurant *> &, const std::vector<const Restaurant *> &, std::vector<const Restaurant *> &);
 };

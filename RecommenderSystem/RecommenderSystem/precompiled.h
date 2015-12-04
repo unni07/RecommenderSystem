@@ -33,8 +33,7 @@
 #include <QTGui\QApplication>
 #include <QTGui\QRadioButton>
 #include <QTGui\QIcon.h>
-#include <QTGui\QTextEdit>
-
+#include <QTGui\QCheckBox>
 
 //glm
 

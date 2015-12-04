@@ -1,0 +1,28 @@
+This are the feature types:
+{
+	-Decor quality
+		.Poor
+		.Fair
+		.Good
+		.Excellent
+		.Extraordinary
+		.Near-perfect
+	-Food quality
+		.Fair
+		.Good
+		.Excellent
+		.Extraordinary
+		.Near-perfect
+	-Price range
+		.below $15
+		.$15-$30
+		.$30-$50
+		.over $50
+	-Service quality
+		.Fair
+		.Good
+		.Excellent
+		.Extraordinary
+		.Near-perfect
+	-Others
+}

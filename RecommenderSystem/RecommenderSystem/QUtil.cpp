@@ -69,6 +69,19 @@ QTextEdit * QUtil::createTextDisplay(glm::vec2 position, glm::vec2 scale, bool r
 	return textedit;
 }
 
+QCheckBox * QUtil::createCheckbox(std::string boxName, glm::vec2 position, bool checked)
+{
+	auto checkBox = new QCheckBox();
+	checkBox->setText(boxName.c_str());
+	if(checked)
+	checkBox->setCheckState(Qt::Checked);
+	else
+		checkBox->setCheckState(Qt::Unchecked);
+	checkBox->move(position.x, position.y);
+	return checkBox;
+
+}
+
 QSlider* QUtil::createSlider()
 {
 	QSlider * slider = new QSlider();

@@ -105,16 +105,15 @@ const std::vector<const Restaurant *> FeatureDatabase::GetListOfRestaurantsByKey
 	auto it1 = list_of_restaurants.begin();
 	auto it2 = list_of_restaurants.begin(); it2++;
 	std::vector<const Restaurant *> dest;
-#pragma warning(disable : 4996)
-	//std::set_intersection(it1->begin(), it1->end(), it2->begin(), it2->end(), dest);
+
+	intersection(*it1, *it2, dest);
 
 	auto end = list_of_restaurants.end();
 	for (; it2 != end; it2++)
 	{
 		std::vector<const Restaurant *> temp = dest;
 
-#pragma warning(disable : 4996)
-		//std::set_intersection(temp.begin(), temp.end(), it2->begin(), it2->end(), dest);
+		intersection(temp, *it2, dest);
 	}
 
 	return dest;
@@ -144,16 +143,15 @@ const std::vector<const Restaurant *> FeatureDatabase::GetListOfRestaurantsByKey
 	auto it1 = list_of_restaurants.begin();
 	auto it2 = list_of_restaurants.begin(); it2++;
 	std::vector<const Restaurant *> dest;
-#pragma warning(disable : 4996)
-	//std::set_intersection(it1->begin(), it1->end(), it2->begin(), it2->end(), dest);
+
+	intersection(*it1, *it2, dest);
 
 	auto end = list_of_restaurants.end();
 	for (; it2 != end; it2++)
 	{
 		std::vector<const Restaurant *> temp = dest;
 
-#pragma warning(disable : 4996)
-		//std::set_intersection(temp.begin(), temp.end(), it2->begin(), it2->end(), dest);
+		intersection(temp, *it2, dest);
 	}
 
 	return dest;
@@ -242,4 +240,17 @@ std::vector<const Restaurant *> FeatureDatabase::GetClosestRestaurants(const std
 	restaurants.push_back(second_best);
 	restaurants.push_back(third_best);
 	return restaurants;
+}
+
+
+
+void FeatureDatabase::intersection(const std::vector<const Restaurant *> &set1, const std::vector<const Restaurant *> &set2, std::vector<const Restaurant *> &result)
+{
+	for (auto it1 : set1)
+	{
+		if (std::find(set2.begin(), set2.end(), it1) != set2.end())
+		{
+			result.push_back(it1);
+		}
+	}
 }

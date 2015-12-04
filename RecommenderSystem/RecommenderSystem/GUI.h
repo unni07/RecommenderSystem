@@ -3,6 +3,7 @@
 
 class GUI: public QDialog
 {
+	Q_OBJECT
 public:
 	void initialize() ;
 	~GUI();
@@ -21,6 +22,7 @@ private:
 	mapComboBox comboBox;
 	mapQlineEdit lineEdits;
 	mpaTextDisplay textDisplays;
+	mapCheckBox checkBoxes;
 	mapSliders sliders;
 
 	QPushButton * getButton(std::string);
@@ -46,6 +48,11 @@ private:
 
 	QTextEdit * createTextDisplay(std::string key, glm::vec2 position = glm::vec2(0),glm::vec2 scale = glm::vec2(100,100),bool readOnly = false);
 
+	QCheckBox * createCheckBox(std::string key,
+							   std::string boxName,
+							   glm::vec2 position = glm::vec2(0),
+							   bool checked = false);
+
 	QSlider * createSlider(std::string name);
 
 	bool projectIsloaded;
@@ -54,7 +61,18 @@ private:
 	bool checkProjectCreationStatus() const;
 	/*set status of the project*/
 	void setStatus(bool status);
+	/*Connect the buttons*/
+	void connectToTask();
+	/*show output*/
+	void showOutput(std::vector<std::string> output);
+	/*to read the feature lsist*/
+	void readFeatureList();
+private slots:
+	/*function to call Search*/
+	void search();
+	/*check check boxes selected*/
+	void checkBoxSelected();
 
-	
+	std::map<std::string,std::vector<std::string>> featureList;
 };
 
