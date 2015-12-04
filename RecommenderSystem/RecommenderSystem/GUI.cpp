@@ -31,18 +31,37 @@ void GUI::initialize()
 	outputArea->addWidget(outputTextEdit);
 	
 	QVBoxLayout * outputButtonArea = new QVBoxLayout();
-	auto button1 = createCheckBox("button1", "button1", { 0,0 },false);
+	auto itr = featureList.begin();
+	auto itrEnd = featureList.end();
+	while (itr != itrEnd)
+	{
+		auto label = new QLabel((itr->first).c_str());
+		label->setParent(this);
+		outputButtonArea->addWidget(label);
+		auto itrVector = itr->second.begin();
+		auto itrVectorEnd = itr->second.end();
+		while (itrVector != itrVectorEnd)
+		{
+			auto button1 = createCheckBox(*itrVector, *itrVector, { 0,0 }, false);
+			button1->setParent(this);
+			outputButtonArea->addWidget(button1);
+			++itrVector;
+		}
+
+		++itr;
+	}
+	/*auto button1 = createCheckBox("button1", "button1", { 0,0 },false);
 	auto button2 = createCheckBox("button2", "button2", { 0,0 },false);
 	auto button3 = createCheckBox("button3", "button3", { 0,0 },false);
-	auto button4 = createCheckBox("button4", "button4", { 0,0 },false);
-	button1->setParent(this);
-	button2->setParent(this);
+	auto button4 = createCheckBox("button4", "button4", { 0,0 },false);*/
+	
+	/*button2->setParent(this);
 	button3->setParent(this);
-	button4->setParent(this);
-	outputButtonArea->addWidget(button1);
-	outputButtonArea->addWidget(button2);
-	outputButtonArea->addWidget(button3);
-	outputButtonArea->addWidget(button4);
+	button4->setParent(this);*/
+	
+	//outputButtonArea->addWidget(button2);
+	//outputButtonArea->addWidget(button3);
+	//outputButtonArea->addWidget(button4);
 	outputButtonArea->addStretch(1);
 	outputButtons->setLayout(outputButtonArea);
 	outputArea->addWidget(outputButtons);
