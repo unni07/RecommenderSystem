@@ -59,7 +59,7 @@ void CityDatabase::ReadCities()
 	cities_[City::washington_dc]	= City("washington_dc");
 }
 
-const Restaurant &CityDatabase::GetRestaurant(const std::string &restaurant_name)
+const Restaurant CityDatabase::GetRestaurant(const std::string &restaurant_name)
 {
 	for (auto city = cities_.begin(); city != cities_.end(); city++)
 	{

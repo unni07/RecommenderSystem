@@ -107,6 +107,8 @@ float Restaurant::ComputeDistance(const std::vector<std::string> &feature_list) 
 	for (auto feature_name : feature_list)
 	{
 		const Feature *feature = FeatureDatabase::Get(feature_name);
+		if (feature == nullptr)
+			continue;
 
 		switch (feature->type_)
 		{

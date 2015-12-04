@@ -214,6 +214,8 @@ std::vector<std::string> FeatureDatabase::GetClosestRestaurants(const std::vecto
 
 
 	float best_dist = std::numeric_limits<float>::max();
+	float second_dist = std::numeric_limits<float>::max();
+	float third_dist = std::numeric_limits<float>::max();
 	std::string best_rest;
 	std::string second_best;
 	std::string third_best;
@@ -222,13 +224,34 @@ std::vector<std::string> FeatureDatabase::GetClosestRestaurants(const std::vecto
 	{
 		float dist = CityDatabase::GetRestaurant(restaurant).ComputeDistance(feature_name_list);
 
-		if (dist < best_dist)
+		if (dist < third_dist)
 		{
-			best_dist = dist;
-			third_best = second_best;
-			second_best = best_rest;
-			best_rest = restaurant;
-			
+			if (dist < second_dist)
+			{
+				if (dist < best_dist)
+				{
+					third_dist = second_dist;
+					second_dist = best_dist;
+					best_dist = dist;
+
+					third_best = second_best;
+					second_best = best_rest;
+					best_rest = restaurant;
+				}
+				else
+				{
+					third_dist = second_dist;
+					second_dist = dist;
+
+					third_best = second_best; 
+					second_best = restaurant;
+				}
+			}
+			else
+			{
+				third_dist = dist;
+				third_best = restaurant;
+			}
 		}
 	}
 
