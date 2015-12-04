@@ -1,12 +1,12 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'GUI.h'
 **
-** Created: Tue Dec 1 05:45:40 2015
+** Created: Fri Dec 4 04:39:58 2015
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
-#include "precompiled.h"
+#include"precompiled.h"
 #include "GUI.h"
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'GUI.h' doesn't include <QObject>."
@@ -23,7 +23,7 @@ static const uint qt_meta_data_GUI[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -32,12 +32,16 @@ static const uint qt_meta_data_GUI[] = {
 
  // slots: signature, parameters, type, tag, flags
        5,    4,    4,    4, 0x08,
+      14,    4,    4,    4, 0x08,
+      40,   33,    4,    4, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_GUI[] = {
-    "GUI\0\0search()\0"
+    "GUI\0\0search()\0checkBoxSelected()\0"
+    "output\0"
+    "recommendation(std::map<std::string,std::vector<std::string> >)\0"
 };
 
 void GUI::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -47,10 +51,11 @@ void GUI::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **
         GUI *_t = static_cast<GUI *>(_o);
         switch (_id) {
         case 0: _t->search(); break;
+        case 1: _t->checkBoxSelected(); break;
+        case 2: _t->recommendation((*reinterpret_cast< const std::map<std::string,std::vector<std::string> >(*)>(_a[1]))); break;
         default: ;
         }
     }
-    Q_UNUSED(_a);
 }
 
 const QMetaObjectExtraData GUI::staticMetaObjectExtraData = {
@@ -85,9 +90,9 @@ int GUI::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 3;
     }
     return _id;
 }

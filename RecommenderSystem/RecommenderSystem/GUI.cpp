@@ -25,10 +25,13 @@ void GUI::initialize()
 	QGroupBox * outputButtons = new QGroupBox("Output");
 	QHBoxLayout * outputArea = new QHBoxLayout();
 	//auto outputTextEdit = createLineEdit("output", { 0.03f*width ,0.05f* height }, { 500,500 });
-	auto outputTextEdit = createTextDisplay("OutputText", {0,0}, { 500,500 }, false);
-
+	auto outputTextEdit = createTextDisplay("OutputText", { 0,0 }, { 300,500 }, false);
+	auto recommendeOutTextEdit = createTextDisplay("RecommendedOutputText", { 0,0 }, { 300,500 }, false);
+	recommendeOutTextEdit->setParent(this);
 	outputTextEdit->setParent(this);
 	outputArea->addWidget(outputTextEdit);
+	outputArea->addWidget(recommendeOutTextEdit);
+
 	
 	QVBoxLayout * outputButtonArea = new QVBoxLayout();
 	auto itr = featureList.begin();
@@ -50,6 +53,8 @@ void GUI::initialize()
 
 		++itr;
 	}
+	auto button2 = createButton("FilterSearch", "Search");
+	outputButtonArea->addWidget(button2);
 	outputButtonArea->addStretch(1);
 	outputButtons->setLayout(outputButtonArea);
 	outputArea->addWidget(outputButtons);
@@ -186,8 +191,9 @@ bool  GUI::checkProjectCreationStatus() const
 void GUI::connectToTask()
 {
 	auto find = getButton("RecommendButton");
-	 
-	QObject::connect(find,SIGNAL(clicked()),this,SLOT(search()));
+	auto search = getButton("FilterSearch");
+	QObject::connect(find, SIGNAL(clicked()), this, SLOT(search()));
+	QObject::connect(search, SIGNAL(clicked()), this, SLOT(checkBoxSelected()));
 }
 
 void GUI::showOutput(std::vector<std::string> output)
@@ -199,7 +205,7 @@ void GUI::readFeatureList()
 {
 
 	std::ifstream file;
-	file.open("IMPORANT.txt");
+	file.open("FeatureList.txt");
 	std::string line;
 	std::string key;
 	while (std::getline(file, line))
@@ -209,17 +215,19 @@ void GUI::readFeatureList()
 		iss >> word;
 		if(word.at(0) == '-')
 		{
-			key = word;
+			std::string val = word.substr(1, std::string::npos);
+			key = val;
 		}
 		if(word.at(0) == '.')
 		{
+			std::string val = word.substr(1, std::string::npos);
 			auto itr = featureList.find(key);
 			if (itr != featureList.end())
 			{
-				itr->second.push_back(word);
+				itr->second.push_back(val);
 			}
 			else
-				featureList[key].push_back(word);
+				featureList[key].push_back(val);
 		}
 		
 	}
@@ -246,6 +254,39 @@ void GUI::Display(const std::vector<std::string>& output)
 		++itr;
 	}
 	
+}
+
+void GUI::recommendation(const std::map<std::string, std::vector<std::string>>& output)
+{
+
+	auto textEdit = getTextEdit("RecommendedOutputText");
+	textEdit->clear();
+	textEdit->append("Our Recommendation");
+	textEdit->append("\n");
+	if (output.size() == 0)
+	{
+		textEdit->append("Sorry no such Restaurants, Kindly try again..");
+		return;
+	}
+	auto itr = output.begin();
+	auto itrEnd = output.end();
+	while (itr != itrEnd)
+	{
+		std::string label = itr->first;
+		label = "for " + label;
+		textEdit->append(label.c_str());
+		textEdit->append("\n");
+		auto itrVector = itr->second.begin();
+		auto itrVectorEnd = itr->second.end();
+		while(itrVector!=itrVectorEnd)
+		{
+			textEdit->append((*itrVector).c_str());
+			++itrVector;
+		}
+		
+		++itr;
+	}
+
 }
 
 void GUI::search()
@@ -275,5 +316,22 @@ void GUI::checkBoxSelected()
 		}
 		++itr;
 	}
+	
+	std::map<std::string,std::vector<std::string>>result;
+	auto size = checkedBoxes.size();
+	for (int i = 0; i < size; ++i)
+	{
+		auto out = KeyWordSearch::getInstance().search(checkedBoxes[i]);
+		auto itr = result.find(checkedBoxes[i]);
+		if (itr != result.end())
+		{
+			itr->second.insert(itr->second.end(), out.begin(), out.end());
+		}
+		else
+			result[checkedBoxes[i]] = out;
+	}
+	std::map<std::string, std::vector<std::string>>resulttoDisplay;
+	KeyWordSearch::getInstance().recommendation(result, resulttoDisplay);
+	recommendation(resulttoDisplay);
 }
 

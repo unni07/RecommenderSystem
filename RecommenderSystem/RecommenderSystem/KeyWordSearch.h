@@ -6,6 +6,8 @@ public:
 	
 	void initialize();
 	std::vector<std::string> search(std::string name);
+	/*get recommendation with respect to choices*/
+	void recommendation(std::map<std::string, std::vector<std::string>> checkboxes, std::map<std::string, std::vector<std::string>>& result);
 private:
 	KeyWordSearch();
 	~KeyWordSearch();
