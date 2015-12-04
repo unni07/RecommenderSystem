@@ -3,6 +3,7 @@
 //#include <fstream>
 //#include <set>
 #include "Restaurant.h"
+#include "City.h"
 
 std::vector<std::string>		FeatureDatabase::feature_name_list_;
 std::map<std::string, Feature>	FeatureDatabase::features_;
@@ -66,15 +67,13 @@ const Feature *FeatureDatabase::Get(const std::string &name)
 
 const std::vector<std::string> FeatureDatabase::GetListOfRestaurantNamesByKeyword(const std::string &feature_name)
 {
-	std::vector<std::string> restaurant_names_;
+	if (features_.find(feature_name) == features_.end())
+		return std::vector<std::string>();
 
-	for (auto it : features_[feature_name].restaurants_)
-		restaurant_names_.push_back(it->name_);
-
-	return restaurant_names_;
+	return features_[feature_name].restaurants_;
 }
 
-const std::vector<const Restaurant *> FeatureDatabase::GetListOfRestaurantsByKeyword(const std::string &feature_name)
+/*const std::vector<const Restaurant *> FeatureDatabase::GetListOfRestaurantsByKeyword(const std::string &feature_name)
 {
 	if (features_.find(feature_name) == features_.end())
 		return std::vector<const Restaurant *>();
@@ -82,12 +81,13 @@ const std::vector<const Restaurant *> FeatureDatabase::GetListOfRestaurantsByKey
 	return features_[feature_name].restaurants_;
 }
 
-const std::vector<const Restaurant *> FeatureDatabase::GetListOfRestaurantsByKeyword(const std::string &feature_name, const std::vector<std::string> &cities)
+
+const std::vector<std::string> FeatureDatabase::GetListOfRestaurantNamesByKeyword(const std::string &feature_name, const std::vector<std::string> &cities)
 {
 	if (features_.find(feature_name) == features_.end())
-		return std::vector<const Restaurant *>();
+		return std::vector<std::string>();
 
-	std::vector<const Restaurant *> restaurants;
+	std::vector<std::string> restaurants;
 
 	for (auto res : features_[feature_name].restaurants_)
 	{
@@ -97,13 +97,12 @@ const std::vector<const Restaurant *> FeatureDatabase::GetListOfRestaurantsByKey
 	}
 
 	return restaurants;
-}
+}*/
 
 
 const std::vector<std::string> FeatureDatabase::GetListOfRestaurantNamesByKeywordList(const std::vector<std::string> &feature_name_list)
 {
-	std::vector<std::vector<const Restaurant *>> list_of_restaurants;
-	std::vector<std::string> restaurant_names_;
+	std::vector<std::vector<std::string>> list_of_restaurants;
 
 	for (auto feature_name : feature_name_list)
 	{
@@ -115,25 +114,22 @@ const std::vector<std::string> FeatureDatabase::GetListOfRestaurantNamesByKeywor
 
 	auto it1 = list_of_restaurants.begin();
 	auto it2 = list_of_restaurants.begin(); it2++;
-	std::vector<const Restaurant *> dest;
+	std::vector<std::string> dest;
 
 	intersection(*it1, *it2, dest);
 
 	auto end = list_of_restaurants.end();
 	for (; it2 != end; it2++)
 	{
-		std::vector<const Restaurant *> temp = dest;
+		std::vector<std::string> temp = dest;
 
 		intersection(temp, *it2, dest);
 	}
 
-	for (auto it : dest)
-		restaurant_names_.push_back(it->name_);
-
-	return restaurant_names_;
+	return dest;
 }
 
-const std::vector<const Restaurant *> FeatureDatabase::GetListOfRestaurantsByKeywordList(const std::vector<std::string> &feature_name_list)
+/*const std::vector<const Restaurant *> FeatureDatabase::GetListOfRestaurantsByKeywordList(const std::vector<std::string> &feature_name_list)
 {
 	std::vector<std::vector<const Restaurant *>> list_of_restaurants;
 
@@ -199,11 +195,11 @@ const std::vector<const Restaurant *> FeatureDatabase::GetListOfRestaurantsByKey
 
 	return dest;
 }
+*/
 
-
-std::vector<const Restaurant *> FeatureDatabase::GetClosestRestaurants(const std::vector<std::string> &feature_name_list)
+std::vector<std::string> FeatureDatabase::GetClosestRestaurants(const std::vector<std::string> &feature_name_list)
 {
-	std::set<const Restaurant *> list_of_restaurants;
+	std::set<std::string> list_of_restaurants;
 
 	for (auto feature_name : feature_name_list)
 	{
@@ -218,13 +214,13 @@ std::vector<const Restaurant *> FeatureDatabase::GetClosestRestaurants(const std
 
 
 	float best_dist = std::numeric_limits<float>::max();
-	const Restaurant *best_rest	= nullptr;
-	const Restaurant *second_best = nullptr;
-	const Restaurant *third_best	= nullptr;
+	std::string best_rest;
+	std::string second_best;
+	std::string third_best;
 
 	for (auto restaurant : list_of_restaurants)
 	{
-		float dist = restaurant->ComputeDistance(feature_name_list);
+		float dist = CityDatabase::GetRestaurant(restaurant).ComputeDistance(feature_name_list);
 
 		if (dist < best_dist)
 		{
@@ -235,14 +231,16 @@ std::vector<const Restaurant *> FeatureDatabase::GetClosestRestaurants(const std
 			
 		}
 	}
-	std::vector<const Restaurant *> restaurants;
+
+	std::vector<std::string> restaurants;
 	restaurants.push_back(best_rest);
 	restaurants.push_back(second_best);
 	restaurants.push_back(third_best);
+
 	return restaurants;
 }
 
-std::vector<const Restaurant *> FeatureDatabase::GetClosestRestaurants(const std::vector<std::string> &feature_name_list, const std::vector<std::string> &cities)
+/*std::vector<const Restaurant *> FeatureDatabase::GetClosestRestaurants(const std::vector<std::string> &feature_name_list, const std::vector<std::string> &cities)
 {
 	std::set<const Restaurant *> list_of_restaurants;
 
@@ -284,10 +282,10 @@ std::vector<const Restaurant *> FeatureDatabase::GetClosestRestaurants(const std
 	restaurants.push_back(third_best);
 	return restaurants;
 }
+*/
 
 
-
-void FeatureDatabase::intersection(const std::vector<const Restaurant *> &set1, const std::vector<const Restaurant *> &set2, std::vector<const Restaurant *> &result)
+void FeatureDatabase::intersection(const std::vector<std::string> &set1, const std::vector<std::string> &set2, std::vector<std::string> &result)
 {
 	for (auto it1 : set1)
 	{

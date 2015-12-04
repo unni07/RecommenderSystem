@@ -33,6 +33,7 @@ class CityDatabase
 {
 public:
 	static void Initialize();
+	static const Restaurant &GetRestaurant(const std::string &restaurant_name);
 
 private:
 	static void ReadCities();
