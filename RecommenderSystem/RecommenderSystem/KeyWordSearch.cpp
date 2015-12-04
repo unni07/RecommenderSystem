@@ -35,7 +35,7 @@ void KeyWordSearch::initialize()
 
 		++itr;
 	}
-	//search("romantic place");
+	search("i feel like lunch historic place");
 }
 
 std::vector<std::string> KeyWordSearch::search(std:: string name)

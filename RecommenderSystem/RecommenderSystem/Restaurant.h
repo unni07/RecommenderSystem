@@ -29,7 +29,7 @@ public:
 
 	float ComputeDistance(const std::vector<std::string> &feature_list) const;
 
-private:
+//private:
 	std::string name_;
 	std::string city_;
 
