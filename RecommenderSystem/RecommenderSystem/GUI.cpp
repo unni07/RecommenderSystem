@@ -22,7 +22,7 @@ void GUI::initialize()
 	input->setLayout(inputArea);
 
 	QGroupBox * output = new QGroupBox("Output");
-	QGroupBox * outputButtons = new QGroupBox("Output");
+	 outputButtons = new QGroupBox("Output");
 	QHBoxLayout * outputArea = new QHBoxLayout();
 	//auto outputTextEdit = createLineEdit("output", { 0.03f*width ,0.05f* height }, { 500,500 });
 	auto outputTextEdit = createTextDisplay("OutputText", { 0,0 }, { 300,500 }, false);
@@ -58,6 +58,7 @@ void GUI::initialize()
 	outputButtonArea->addStretch(1);
 	outputButtons->setLayout(outputButtonArea);
 	outputArea->addWidget(outputButtons);
+	outputButtons->setVisible(false);
 
 	output->setLayout(outputArea);
 	outputArea->addStretch(1);
@@ -301,6 +302,7 @@ void GUI::search()
 	auto result = KeyWordSearch::getInstance().search(searchString);
 	Display(result);
 	checkBoxSelected();
+	outputButtons->setVisible(true);
 }
 
 void GUI::checkBoxSelected()

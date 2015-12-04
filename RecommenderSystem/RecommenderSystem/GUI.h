@@ -79,7 +79,7 @@ private slots:
 	void checkBoxSelected();
 	/*to display recommended list*/
 	void recommendation(const std::map<std::string, std::vector<std::string>>& output);
-
+	QGroupBox * outputButtons;
 	
 };
 
