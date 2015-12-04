@@ -19,10 +19,10 @@ struct Feature
 	std::string name_;
 	unsigned ID_;
 	/// List oif restaurants where this feature is featured
-	std::vector<const Restaurant *> restaurants_;
+	std::vector<std::string> restaurants_;
 
 	/// Used for keeping track of which restaurants contain this feature
-	void AddRestaurant(const Restaurant *res) { restaurants_.push_back(res); };
+	void AddRestaurant(const std::string &res) { restaurants_.push_back(res); };
 };
 
 
@@ -42,20 +42,22 @@ public:
 
 	/// Pass a feature name and get the list of restaurants asociated to that feature
 	static const std::vector<std::string> GetListOfRestaurantNamesByKeyword(const std::string &feature_name);
-	static const std::vector<const Restaurant *> GetListOfRestaurantsByKeyword(const std::string &feature_name);
-	static const std::vector<const Restaurant *> GetListOfRestaurantsByKeyword(const std::string &feature_name, const std::vector<std::string> &cities);
+	//static const std::vector<const Restaurant *> GetListOfRestaurantsByKeyword(const std::string &feature_name);
+	//static const std::vector<std::string> GetListOfRestaurantNamesByKeyword(const std::string &feature_name, const std::vector<std::string> &cities);
+	
 	/// Pass a feature name list and get the list of restaurants asociated to all of those features
 	static const std::vector<std::string> GetListOfRestaurantNamesByKeywordList(const std::vector<std::string> &feature_name_list);
-	static const std::vector<const Restaurant *> GetListOfRestaurantsByKeywordList(const std::vector<std::string> &feature_name_list);
-	static const std::vector<const Restaurant *> GetListOfRestaurantsByKeywordList(const std::vector<std::string> &feature_name_list, const std::vector<std::string> &cities);
+	//static const std::vector<const Restaurant *> GetListOfRestaurantsByKeywordList(const std::vector<std::string> &feature_name_list);
+	//static const std::vector<std::string> GetListOfRestaurantNamesByKeywordList(const std::vector<std::string> &feature_name_list, const std::vector<std::string> &cities);
+	
 	/// Pass a feature name list and get a list of restaurants that are close enough to this features
-	std::vector<const Restaurant *> GetClosestRestaurants(const std::vector<std::string> &feature_name_list);
-	std::vector<const Restaurant *> GetClosestRestaurants(const std::vector<std::string> &feature_name_list, const std::vector<std::string> &cities);
+	std::vector<std::string> GetClosestRestaurants(const std::vector<std::string> &feature_name_list);
+	//std::vector<std::string> GetClosestRestaurants(const std::vector<std::string> &feature_name_list, const std::vector<std::string> &cities);
 
 
 private:
 	static void ReadFeatures();
 	static std::vector<std::string> feature_name_list_;
 	static std::map<std::string, Feature> features_;
-	static void intersection(const std::vector<const Restaurant *> &, const std::vector<const Restaurant *> &, std::vector<const Restaurant *> &);
+	static void intersection(const std::vector<std::string> &, const std::vector<std::string> &, std::vector<std::string> &);
 };

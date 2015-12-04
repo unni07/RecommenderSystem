@@ -94,7 +94,7 @@ void Restaurant::RegisterFeatures()
 	{
 		const Feature *feature = FeatureDatabase::Get(feat);
 
-		const_cast<Feature *>(feature)->AddRestaurant(this);
+		const_cast<Feature *>(feature)->AddRestaurant(name_);
 	}
 }
 
