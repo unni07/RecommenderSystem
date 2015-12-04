@@ -70,12 +70,16 @@ private:
 	void readFeatureList();
 	/*Display the output*/
 	void Display(const std::vector<std::string>& output);
+private:
+	std::map<std::string, std::vector<std::string>> featureList;
 private slots:
 	/*function to call Search*/
 	void search();
 	/*check check boxes selected*/
 	void checkBoxSelected();
+	/*to display recommended list*/
+	void recommendation(const std::map<std::string, std::vector<std::string>>& output);
 
-	std::map<std::string,std::vector<std::string>> featureList;
+	
 };
 

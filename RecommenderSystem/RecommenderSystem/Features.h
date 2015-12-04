@@ -51,7 +51,7 @@ public:
 	//static const std::vector<std::string> GetListOfRestaurantNamesByKeywordList(const std::vector<std::string> &feature_name_list, const std::vector<std::string> &cities);
 	
 	/// Pass a feature name list and get a list of restaurants that are close enough to this features
-	std::vector<std::string> GetClosestRestaurants(const std::vector<std::string> &feature_name_list);
+	static std::vector<std::string> GetClosestRestaurants(const std::vector<std::string> &feature_name_list);
 	//std::vector<std::string> GetClosestRestaurants(const std::vector<std::string> &feature_name_list, const std::vector<std::string> &cities);
 
 

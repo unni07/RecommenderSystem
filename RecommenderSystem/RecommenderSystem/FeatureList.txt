@@ -1,0 +1,31 @@
+This are the feature types:
+{
+	-Cusine
+		.American
+		.Afghan
+		.Asian
+		.Chinese
+		.French
+		.Indian
+		.Mexican
+	-Ambience
+		.Romantic
+		.Business
+		.International
+		.Alcohol and Bar
+		.Cafe
+	-Price range
+		.below-$15
+		.$15-$30
+		.$30-$50
+		.over-$50
+	-Services
+		.Wheelchair access
+		.Valet Parking
+	-Timing
+		.Breakfast
+		.Lunch
+		.Dinner
+		.After Hours
+	-Others
+}

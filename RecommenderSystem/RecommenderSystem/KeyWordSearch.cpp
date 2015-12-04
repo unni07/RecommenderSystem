@@ -67,6 +67,18 @@ std::vector<std::string> KeyWordSearch::search(std:: string name)
 	
 }
 
+void KeyWordSearch::recommendation(std::map<std::string, std::vector<std::string>> checkboxes, std::map<std::string, std::vector<std::string>>& result)
+{
+	auto itr = checkboxes.begin();
+	auto itrEnd = checkboxes.end();
+	while(itr != itrEnd)
+	{
+		auto out  = FeatureDatabase::GetClosestRestaurants(itr->second);
+		result[(*itr).first] = out;
+		++itr;
+	}
+}
+
 KeyWordSearch::KeyWordSearch()
 {
 	prepositionList.reserve(1000);
@@ -86,7 +98,7 @@ const std::string KeyWordSearch::fillFeatureMap(const std::string)
 void KeyWordSearch::fillUpWithPreposition()
 {
 	std::ifstream file;
-	file.open("prepositionList.txt");
+	file.open("excludeList.txt");
 	std::string line;
 	while (std::getline(file, line))
 	{
