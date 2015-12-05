@@ -7,7 +7,10 @@ public:
 	void initialize();
 	std::vector<std::string> search(std::string name);
 	/*get recommendation with respect to choices*/
-	void recommendation(std::map<std::string, std::vector<std::string>> checkboxes, std::map<std::string, std::vector<std::string>>& result);
+	//void recommendation(std::map<std::string, std::vector<std::string>> checkboxes, std::map<std::string, std::vector<std::string>>& result);
+	void recommendation(std::vector<std::string> searchstring, std::vector<std::string>& output);
+	/*get data specific to the features*/
+	std::vector<std::string> getFeatureNames(std::string searchString);
 private:
 	KeyWordSearch();
 	~KeyWordSearch();

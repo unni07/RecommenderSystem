@@ -67,16 +67,66 @@ std::vector<std::string> KeyWordSearch::search(std:: string name)
 	
 }
 
-void KeyWordSearch::recommendation(std::map<std::string, std::vector<std::string>> checkboxes, std::map<std::string, std::vector<std::string>>& result)
+//void KeyWordSearch::recommendation(std::map<std::string, std::vector<std::string>> checkboxes, std::map<std::string, std::vector<std::string>>& result)
+//{
+//
+//	auto itr = checkboxes.begin();
+//	auto itrEnd = checkboxes.end();
+//	std::vector<std::string> finalResult;
+//	while(itr != itrEnd)
+//	{
+//		auto requiredVector = itr->second;
+//		auto itrVector = requiredVector.begin();
+//		auto itrVectorEnd = requiredVector.end();
+//		while (itrVector != itrVectorEnd)
+//		{
+//			const std::string searchString = *itrVector;
+//			auto output = getFeatureNames(searchString);
+//			auto out = FeatureDatabase::GetClosestRestaurants(output);
+//			finalResult.insert(finalResult.end(), out.begin(), out.end());
+//			++itrVector;
+//		}
+//		
+//		result[(*itr).first] = finalResult;
+//		++itr;
+//	}
+//}
+
+void KeyWordSearch::recommendation(std::vector<std::string> searchstring,std::vector<std::string>& output)
 {
-	auto itr = checkboxes.begin();
-	auto itrEnd = checkboxes.end();
-	while(itr != itrEnd)
+	output = FeatureDatabase::GetClosestRestaurants(searchstring);
+}
+
+std::vector<std::string> KeyWordSearch::getFeatureNames(std::string name)
+{
+	std::vector<std::string> result;
+	if (name.size() == 0)
+		return result;
+
+	std::transform(name.begin(), name.end(), name.begin(), tolower);
+	std::vector<std::string> cleansedSearchString = cleanTheFilter(name);
+
+	std::vector<std::vector<std::string>> hits;
+	auto itrVector = cleansedSearchString.begin();
+	auto itrVectorEnd = cleansedSearchString.end();
+	while (itrVector != itrVectorEnd)
 	{
-		auto out  = FeatureDatabase::GetClosestRestaurants(itr->second);
-		result[(*itr).first] = out;
-		++itr;
+		auto itr = featuresMap.begin();
+		auto itrEnd = featuresMap.end();
+		while (itr != itrEnd)
+		{
+			auto percentage = percentageMatched(itr->first, *itrVector);
+
+			if (percentage >= 70.0f)
+			{
+				hits.push_back(itr->second);
+			}
+			++itr;
+		}
+		++itrVector;
 	}
+	fetchData(hits, result);
+	return result;
 }
 
 KeyWordSearch::KeyWordSearch()

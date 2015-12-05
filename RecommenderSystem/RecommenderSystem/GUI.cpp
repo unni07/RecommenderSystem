@@ -301,7 +301,7 @@ void GUI::search()
 	std::string searchString = QUtil::instance().convertQStringtoStdString(qSearchString);
 	auto result = KeyWordSearch::getInstance().search(searchString);
 	Display(result);
-	checkBoxSelected();
+	//checkBoxSelected();
 	outputButtons->setVisible(true);
 }
 
@@ -321,19 +321,20 @@ void GUI::checkBoxSelected()
 	
 	std::map<std::string,std::vector<std::string>>result;
 	auto size = checkedBoxes.size();
+	std::map<std::string, std::vector<std::string>>resulttoDisplay;
 	for (int i = 0; i < size; ++i)
 	{
-		auto out = KeyWordSearch::getInstance().search(checkedBoxes[i]);
+		auto out = KeyWordSearch::getInstance().getFeatureNames(checkedBoxes[i]);
+		std::vector<std::string >output;
+		KeyWordSearch::getInstance().recommendation(out, output);
 		auto itr = result.find(checkedBoxes[i]);
 		if (itr != result.end())
 		{
-			itr->second.insert(itr->second.end(), out.begin(), out.end());
+			itr->second.insert(itr->second.end(), output.begin(), output.end());
 		}
 		else
-			result[checkedBoxes[i]] = out;
+			result[checkedBoxes[i]] = output;
 	}
-	std::map<std::string, std::vector<std::string>>resulttoDisplay;
-	KeyWordSearch::getInstance().recommendation(result, resulttoDisplay);
-	recommendation(resulttoDisplay);
+	recommendation(result);
 }
 
