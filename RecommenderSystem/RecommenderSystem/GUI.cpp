@@ -321,7 +321,6 @@ void GUI::checkBoxSelected()
 	
 	std::map<std::string,std::vector<std::string>>result;
 	auto size = checkedBoxes.size();
-	std::map<std::string, std::vector<std::string>>resulttoDisplay;
 	for (int i = 0; i < size; ++i)
 	{
 		auto out = KeyWordSearch::getInstance().getFeatureNames(checkedBoxes[i]);

@@ -125,7 +125,13 @@ std::vector<std::string> KeyWordSearch::getFeatureNames(std::string name)
 		}
 		++itrVector;
 	}
-	fetchData(hits, result);
+	int i = 0;
+	for (; i < hits.size(); ++i)
+	{
+		auto out = hits[i];
+		result.insert(result.end(), out.begin(), out.end());
+
+	}
 	return result;
 }
 

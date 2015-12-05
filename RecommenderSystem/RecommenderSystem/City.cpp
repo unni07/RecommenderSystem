@@ -49,14 +49,14 @@ void CityDatabase::Initialize()
 
 void CityDatabase::ReadCities()
 {
-	cities_[City::atlanta]			= City("atlanta");
-	cities_[City::boston]			= City("boston");
+	//cities_[City::atlanta]			= City("atlanta");
+	//cities_[City::boston]			= City("boston");
 	cities_[City::chicago]			= City("chicago");
-	cities_[City::los_angeles]		= City("los_angeles");
-	cities_[City::new_orleans]		= City("new_orleans");
+	//cities_[City::los_angeles]		= City("los_angeles");
+	//cities_[City::new_orleans]		= City("new_orleans");
 	cities_[City::new_york]			= City("new_york");
-	cities_[City::san_francisco]	= City("san_francisco");
-	cities_[City::washington_dc]	= City("washington_dc");
+	//cities_[City::san_francisco]	= City("san_francisco");
+	//cities_[City::washington_dc]	= City("washington_dc");
 }
 
 const Restaurant CityDatabase::GetRestaurant(const std::string &restaurant_name)

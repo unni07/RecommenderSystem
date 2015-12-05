@@ -17,14 +17,14 @@ public:
 
 	enum enCities
 	{
-		atlanta,
-		boston,
+		//atlanta,
+		//boston,
 		chicago,
-		los_angeles,
-		new_orleans,
-		new_york,
-		san_francisco,
-		washington_dc
+		//los_angeles,
+		//new_orleans,
+		new_york
+		//san_francisco,
+		//washington_dc
 	};
 };
 
