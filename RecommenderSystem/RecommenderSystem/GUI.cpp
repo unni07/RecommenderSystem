@@ -257,7 +257,7 @@ void GUI::Display(const std::vector<std::string>& output)
 	
 }
 
-void GUI::recommendation(const std::map<std::string, std::vector<std::string>>& output)
+void GUI::recommendation(const std::vector<std::string>& output)
 {
 
 	auto textEdit = getTextEdit("RecommendedOutputText");
@@ -273,22 +273,55 @@ void GUI::recommendation(const std::map<std::string, std::vector<std::string>>& 
 	auto itrEnd = output.end();
 	while (itr != itrEnd)
 	{
-		std::string label = itr->first;
-		label = "for " + label;
-		textEdit->append(label.c_str());
-		textEdit->append("\n");
+		textEdit->append((*itr).c_str());
+		//std::string label = itr->first;
+		//label = "for " + label;
+		//textEdit->append(label.c_str());
+		/*textEdit->append("\n");
 		auto itrVector = itr->second.begin();
 		auto itrVectorEnd = itr->second.end();
-		while(itrVector!=itrVectorEnd)
+		while (itrVector != itrVectorEnd)
 		{
 			textEdit->append((*itrVector).c_str());
 			++itrVector;
-		}
-		
+		}*/
+
 		++itr;
 	}
 
 }
+//void GUI::recommendation(const std::map<std::string, std::vector<std::string>>& output)
+//{
+//
+//	auto textEdit = getTextEdit("RecommendedOutputText");
+//	textEdit->clear();
+//	textEdit->append("Our Recommendation");
+//	textEdit->append("\n");
+//	if (output.size() == 0)
+//	{
+//		textEdit->append("Sorry no such Restaurants, Kindly try again..");
+//		return;
+//	}
+//	auto itr = output.begin();
+//	auto itrEnd = output.end();
+//	while (itr != itrEnd)
+//	{
+//		std::string label = itr->first;
+//		label = "for " + label;
+//		textEdit->append(label.c_str());
+//		textEdit->append("\n");
+//		auto itrVector = itr->second.begin();
+//		auto itrVectorEnd = itr->second.end();
+//		while (itrVector != itrVectorEnd)
+//		{
+//			textEdit->append((*itrVector).c_str());
+//			++itrVector;
+//		}
+//
+//		++itr;
+//	}
+//
+//}
 
 void GUI::search()
 {
@@ -301,7 +334,6 @@ void GUI::search()
 	std::string searchString = QUtil::instance().convertQStringtoStdString(qSearchString);
 	auto result = KeyWordSearch::getInstance().search(searchString);
 	Display(result);
-	//checkBoxSelected();
 	outputButtons->setVisible(true);
 }
 
@@ -318,22 +350,36 @@ void GUI::checkBoxSelected()
 		}
 		++itr;
 	}
-	
-	std::map<std::string,std::vector<std::string>>result;
+	auto textEdit = getLineEdit("input");
+	auto qSearchString = textEdit->text();
+	if (qSearchString.size() == 0)
+	{
+		return;
+	}
+	std::string searchString = QUtil::instance().convertQStringtoStdString(qSearchString);
+	auto prev = KeyWordSearch::getInstance().search(searchString);
+
+	//std::map<std::string, std::vector<std::string>>result;
+	std::vector<std::string>result;
+	std::vector < std::string > out;
+	out.insert(out.end(), prev.begin(), prev.end());
 	auto size = checkedBoxes.size();
 	for (int i = 0; i < size; ++i)
 	{
-		auto out = KeyWordSearch::getInstance().getFeatureNames(checkedBoxes[i]);
+		auto temp = KeyWordSearch::getInstance().getFeatureNames(checkedBoxes[i]);
+		out.insert(out.end(), temp.begin(), temp.end());
+		//result[checkedBoxes[i]];
+	}
 		std::vector<std::string >output;
 		KeyWordSearch::getInstance().recommendation(out, output);
-		auto itr = result.find(checkedBoxes[i]);
-		if (itr != result.end())
-		{
-			itr->second.insert(itr->second.end(), output.begin(), output.end());
-		}
-		else
-			result[checkedBoxes[i]] = output;
-	}
-	recommendation(result);
+	//	auto itr = result.find(checkedBoxes[i]);
+	//	if (itr != result.end())
+	//	{
+	//		itr->second.insert(itr->second.end(), output.begin(), output.end());
+	//	}
+	//	else
+	//		result[checkedBoxes[i]] = output;
+	//}
+	recommendation(output);
 }
 

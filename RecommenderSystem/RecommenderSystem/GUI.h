@@ -7,7 +7,13 @@ class GUI: public QDialog
 public:
 	void initialize() ;
 	~GUI();
-	GUI();
+	GUI(); 
+private slots:
+	/*function to call Search*/
+	void search();
+	/*check check boxes selected*/
+	void checkBoxSelected();
+
 private:
 
 	QVBoxLayout * mainLayout;
@@ -70,16 +76,13 @@ private:
 	void readFeatureList();
 	/*Display the output*/
 	void Display(const std::vector<std::string>& output);
-private:
 	std::map<std::string, std::vector<std::string>> featureList;
-private slots:
-	/*function to call Search*/
-	void search();
-	/*check check boxes selected*/
-	void checkBoxSelected();
 	/*to display recommended list*/
-	void recommendation(const std::map<std::string, std::vector<std::string>>& output);
+	void recommendation(const std::vector<std::string>& output);
+
 	QGroupBox * outputButtons;
+
+
 	
 };
 
